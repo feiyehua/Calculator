@@ -51,4 +51,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-Calculator/CoreCalculator/build
+Calculator/CoreCalculator/build/
