@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-07 00:23:00
- * @LastEditTime : 2024-10-07 00:55:09
+ * @LastEditTime : 2024-10-07 12:52:27
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : main.c
@@ -21,18 +21,25 @@
     ********************************************************************************/
     
 
-#include "GetNumber.h"
+#include<stdio.h>
 #include<string.h>
 #include <stdlib.h>
+#include"ParseMathExpression.h"
+#include"GetValue.h"
 char testNumber[1000];
 long double result;
+long double mathExpression[1000];
+int locOfPri[1000],numCount;
 char *endptr;
 int main(void)
 {
     scanf("%s",testNumber);
-    getNumber(testNumber, strlen(testNumber), &result);
-    printf("%.20Lf\n",result);
-    long double num=strtold(testNumber,&endptr);
-    printf("%.20Lf\n",num);
+    parseMathExpression(testNumber,mathExpression,&numCount,locOfPri);
+    for(int i=0;i<numCount;i++)
+    {
+        printf("%d %Lf %d\n",i,mathExpression[i],locOfPri[i]);
+    }
+    getValue(mathExpression,locOfPri,numCount,&result);
+    printf("%Lf\n",result);
     return 0;
 }

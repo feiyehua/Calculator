@@ -1,7 +1,7 @@
 //
     /*******************************************************************************
             
-            File name:     Addition.c
+            File name:     GetValue.h
             Author:        FeiYehua
             
             Description:   Created for Calculator in 2024
@@ -12,12 +12,9 @@
     ********************************************************************************/
     
 
-#include "Addition.h"
-/*long double addition(char mathExpression[], int lengthOfMathExpression, long double* result)
-{
-    for(int i=)
-    {
-        
-    }
-}
-*/
+#ifndef GetValue_h
+#define GetValue_h
+
+#include <stdio.h>
+int getValue(long double*,int*,int,long double*);
+#endif /* GetValue_h */

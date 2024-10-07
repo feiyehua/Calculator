@@ -1,7 +1,7 @@
 //
     /*******************************************************************************
             
-            File name:     GetNumber.h
+            File name:     ParseMathExpression.h
             Author:        FeiYehua
             
             Description:   Created for Calculator in 2024
@@ -12,9 +12,9 @@
     ********************************************************************************/
     
 
-#ifndef GetNumber_h
-#define GetNumber_h
+#ifndef ParseMathExpression_h
+#define ParseMathExpression_h
 
 #include <stdio.h>
-long double getNumber(char[],int,long double*);
-#endif /* GetNumber_h */
+int parseMathExpression(char*,long double*,int*,int*);
+#endif /* ParseMathExpression_h */
