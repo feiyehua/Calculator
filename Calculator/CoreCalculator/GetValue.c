@@ -17,15 +17,23 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
 {
     for(int i=0;i<numCount;i++)
     {
-        if(locOfPri[i]==-1)
+        switch(locOfPri[i])
         {
-            mathExpression[i]=mathExpression[i-1]/mathExpression[i];
-            mathExpression[i-1]=0;
-        }
-        else if(locOfPri[i]==1)
-        {
-            mathExpression[i]=mathExpression[i-1]*mathExpression[i];
-            mathExpression[i-1]=0;
+            case 1:
+            {
+                mathExpression[i]=mathExpression[i-1]*mathExpression[i];
+                mathExpression[i-1]=0;
+            }
+            case 2:
+            {
+                mathExpression[i]=mathExpression[i-1]/mathExpression[i];
+                mathExpression[i-1]=0;
+            }
+            case 3:
+            {
+                mathExpression[i]=pow(mathExpression[i-1],mathExpression[i]);
+                mathExpression[i-1]=0;
+            }
         }
     }
     for(int i=0;i<numCount;i++)

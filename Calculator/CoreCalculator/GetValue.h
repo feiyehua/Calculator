@@ -16,5 +16,6 @@
 #define GetValue_h
 
 #include <stdio.h>
+#include<math.h>
 int getValue(long double*,int*,int,long double*);
 #endif /* GetValue_h */

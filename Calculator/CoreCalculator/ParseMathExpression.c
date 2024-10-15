@@ -1,3 +1,12 @@
+/*
+ * @Author       : FeiYehua
+ * @Date         : 2024-10-07 11:56:07
+ * @LastEditTime : 2024-10-15 08:02:09
+ * @LastEditors  : FeiYehua
+ * @Description  : 
+ * @FilePath     : ParseMathExpression.c
+ *      © 2024 FeiYehua
+ */
 
 //
     /*******************************************************************************
@@ -28,13 +37,24 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
         if(nextPtr==originalExpression)
         {
             nextPtr++;
-            if(*originalExpression=='*')
+            switch (*originalExpression)
             {
-                locOfPri[*numCount]=1;
-            }
-            else if(*originalExpression=='/')
-            {
-                locOfPri[*numCount]=-1;
+                case '*':
+                {
+                    locOfPri[*numCount]=1;
+                }
+                case '/':
+                {
+                    locOfPri[*numCount]=2;
+                }
+                case '^':
+                {
+                    locOfPri[*numCount]=3;
+                }
+                default:
+                {
+                    locOfPri[*numCount]=0;
+                }
             }
             continue;
         }
