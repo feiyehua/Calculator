@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-07 00:23:00
- * @LastEditTime : 2024-10-07 12:52:27
+ * @LastEditTime : 2024-10-15 19:14:51
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : main.c
@@ -31,15 +31,17 @@ long double result;
 long double mathExpression[1000];
 int locOfPri[1000],numCount;
 char *endptr;
-int main(void)
+int main(int argc,char* argv[])
 {
-    scanf("%s",testNumber);
-    parseMathExpression(testNumber,mathExpression,&numCount,locOfPri);
+    //scanf("%s",testNumber);
+    parseMathExpression(argv[1],mathExpression,&numCount,locOfPri);
+    #if 1
     for(int i=0;i<numCount;i++)
     {
         printf("%d %Lf %d\n",i,mathExpression[i],locOfPri[i]);
     }
+    #endif
     getValue(mathExpression,locOfPri,numCount,&result);
-    printf("%Lf\n",result);
+    printf("%.15Lf\n",result);
     return 0;
 }
