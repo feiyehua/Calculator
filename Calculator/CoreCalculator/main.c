@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-07 00:23:00
- * @LastEditTime : 2024-10-15 19:14:51
+ * @LastEditTime : 2024-10-15 21:24:39
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : main.c
@@ -35,7 +35,7 @@ int main(int argc,char* argv[])
 {
     //scanf("%s",testNumber);
     parseMathExpression(argv[1],mathExpression,&numCount,locOfPri);
-    #if 1
+    #if 0
     for(int i=0;i<numCount;i++)
     {
         printf("%d %Lf %d\n",i,mathExpression[i],locOfPri[i]);
@@ -45,4 +45,6 @@ int main(int argc,char* argv[])
     printf("%.15Lf\n",result);
     return 0;
 }
-//(1+3)^4*((5/7*8-90)*6^5-4)/7*9+10-11
+//(1+3)^4*((5/7*8-90)*65-4)/7*9+10-11
+//2*2^(4*3)
+//((5/7*8-90)*6^5-4)/7
