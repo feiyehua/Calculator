@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-15 16:48:00
- * @LastEditTime : 2024-10-15 19:04:55
+ * @LastEditTime : 2024-10-15 19:55:35
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : GetValue.c
@@ -22,11 +22,19 @@
     
 
 #include "GetValue.h"
+int getTypeOfPri(int i)
+{
+    if(i>=0)
+    {
+        return i;
+    }
+    return -1;
+}
 int getValue(long double* mathExpression,int* locOfPri,int numCount, long double* result)
 {
     for(int i=1;i<numCount;i++)
     {
-        switch(locOfPri[i])
+        switch(getTypeOfPri(locOfPri[i]))
         {
             case 1:
             {
@@ -51,6 +59,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
             }
             case -1:
             {
+                printf("%Lf,i\n",mathExpression[i]);
                 int startOfBracket=i;
                 i++;
                 while(locOfPri[i]==0)
@@ -60,13 +69,16 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 i--;
                 mathExpression[i]=mathExpression[startOfBracket-1];
                 mathExpression[startOfBracket-1]=0;
+                locOfPri[i+1]=locOfPri[startOfBracket]*-1;
             }
         }
     }
     for(int i=0;i<numCount;i++)
     {
         *result+=mathExpression[i];
+        printf("%Lf,",mathExpression[i]);
         mathExpression[i]=0;
     }
+    printf("\n");
     return 0;
 }

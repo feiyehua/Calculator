@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-07 11:56:07
- * @LastEditTime : 2024-10-15 19:10:54
+ * @LastEditTime : 2024-10-15 19:52:40
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : ParseMathExpression.c
@@ -83,14 +83,10 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     int numberOfNumbersInBracket=*numCount-leftBracketInfo[leftBracketCount].numcount;
                     //printf("%d\n",*numCount);
                     getValue(&mathExpression[placeOfLeftBracket],&locOfPri[placeOfLeftBracket],numberOfNumbersInBracket,&tmp);
-                    locOfPri[*numCount-1]=locOfPri[placeOfLeftBracket];
-                    if(locOfPri[placeOfLeftBracket]!=0)
+                    if(placeOfLeftBracket!=leftBracketInfo[leftBracketCount-1].numcount)
                     {
-                        locOfPri[placeOfLeftBracket]=-1;
-                    }
-                    else
-                    {
-                        locOfPri[placeOfLeftBracket]=0;
+                        locOfPri[*numCount-1]=locOfPri[placeOfLeftBracket];
+                        locOfPri[placeOfLeftBracket]*=-1;
                     }
                     mathExpression[*numCount-1]=tmp;
                     leftBracketCount--;
