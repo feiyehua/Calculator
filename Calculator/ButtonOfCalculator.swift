@@ -20,12 +20,11 @@ struct CalculatorButton: View {
     @Binding var toBeCalculatedString: String  // 绑定到外部字符串的状态
     var backgroundColor: Color  // 自定义背景颜色
     var foregroundColor: Color  // 自定义前景颜色
-    
+    @State var isTapped=false
     var body: some View {
         Button(action: {
             toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
-//            let generator = UIImpactFeedbackGenerator(style: .medium)
-//            generator.impactOccurred()
+            isTapped = !isTapped;
         }) {
             Text("\(displayedCharacter)")  // 按钮显示
                 .font(.title)
@@ -33,6 +32,8 @@ struct CalculatorButton: View {
                 .background(backgroundColor)
                 .foregroundColor(foregroundColor)
                 .cornerRadius(10)
+            
         }
+        .sensoryFeedback(.impact, trigger: isTapped)
     }
 }

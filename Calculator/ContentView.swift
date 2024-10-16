@@ -16,17 +16,20 @@ import SwiftUI
 //struct buttomOfCalculator
 struct ContentView: View {
     @State private var toBeCalculatedString = ""  // 用于存储字符串
-    
+    @State private var isACTapped=false
+    @State private var isDeleteTapped=false
     var body: some View {
         VStack {
             HStack {
                 Text(toBeCalculatedString)  // 显示当前字符串
                     .font(.largeTitle)
                     .padding()
+                
                 Button(action: {
                     if !toBeCalculatedString.isEmpty
                     {
                         toBeCalculatedString.removeLast()
+                        isDeleteTapped = !isDeleteTapped
                     }
                 }) {
                     Image(systemName: "delete.left")  // 使用系统垃圾桶图标
@@ -34,11 +37,13 @@ struct ContentView: View {
                         .foregroundColor(.red)
                         .padding()
                 }
+                .sensoryFeedback(.impact, trigger: isDeleteTapped)
             }
-            // 添加删除按钮
+            // 添加AC按钮
             HStack {
                 Button(action: {
                     toBeCalculatedString=""
+                    isACTapped = !isACTapped
                 }
                 ) {
                     Text("AC")  // 按钮显示
@@ -48,6 +53,7 @@ struct ContentView: View {
                         .foregroundColor(.red)
                         .cornerRadius(10)
                 }
+                .sensoryFeedback(.success, trigger: isACTapped)
                 CalculatorButton(
                     displayedCharacter: "(", addToStringCharacter: "(",
                     toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
