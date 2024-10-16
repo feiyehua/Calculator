@@ -15,6 +15,6 @@
 #ifndef ParseMathExpression_h
 #define ParseMathExpression_h
 
-#include <stdio.h>
+
 int parseMathExpression(char*,long double*,int*,int*);
 #endif /* ParseMathExpression_h */

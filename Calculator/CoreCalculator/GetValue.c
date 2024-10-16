@@ -22,6 +22,8 @@
     
 
 #include "GetValue.h"
+#include <stdio.h>
+#include<math.h>
 int getTypeOfPri(int i)
 {
     if(i>=0)

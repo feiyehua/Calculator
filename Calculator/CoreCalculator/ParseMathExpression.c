@@ -23,10 +23,10 @@
     
 
 #include "ParseMathExpression.h"
-#include"stdlib.h"
+#include<stdlib.h>
 #include"GetValue.h"
 #include<string.h>
-
+#include <stdio.h>
 enum typeOfCal
 {
     NORMAL,SIN,COS,TAN,ARCSIN,ARCCOS,ARCTAN,LN

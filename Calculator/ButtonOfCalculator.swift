@@ -1,16 +1,16 @@
 //
-    /*******************************************************************************
-            
-            File name:     ButtonOfCalculator.swift
-            Author:        FeiYehua
-            
-            Description:   Created for Calculator in 2024
-            
-            History:
-                    2024/10/16: File created.
-            
-    ********************************************************************************/
-    
+/*******************************************************************************
+ 
+ File name:     ButtonOfCalculator.swift
+ Author:        FeiYehua
+ 
+ Description:   Created for Calculator in 2024
+ 
+ History:
+ 2024/10/16: File created.
+ 
+ ********************************************************************************/
+
 
 import Foundation
 import SwiftUI
@@ -24,6 +24,8 @@ struct CalculatorButton: View {
     var body: some View {
         Button(action: {
             toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
+//            let generator = UIImpactFeedbackGenerator(style: .medium)
+//            generator.impactOccurred()
         }) {
             Text("\(displayedCharacter)")  // 按钮显示
                 .font(.title)

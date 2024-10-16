@@ -12,7 +12,7 @@
  ********************************************************************************/
 
 import SwiftUI
-
+//import CxxStdlib
 //struct buttomOfCalculator
 struct ContentView: View {
     @State private var toBeCalculatedString = ""  // 用于存储字符串
@@ -38,8 +38,8 @@ struct ContentView: View {
             // 添加删除按钮
             HStack {
                 Button(action: {
-                        toBeCalculatedString=""
-                    }
+                    toBeCalculatedString=""
+                }
                 ) {
                     Text("AC")  // 按钮显示
                         .font(.title)
@@ -107,9 +107,20 @@ struct ContentView: View {
                 CalculatorButton(
                     displayedCharacter: ".", addToStringCharacter: ".",
                     toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
-                CalculatorButton(
-                    displayedCharacter: "=", addToStringCharacter: "=",
-                    toBeCalculatedString: $toBeCalculatedString,backgroundColor: .black,foregroundColor: .white)
+                Button(action: {
+                    let cxxString=std.string(toBeCalculatedString)
+                    var cxxResultString=std.string("")
+                    getStringValue(cxxString,&cxxResultString)
+                    toBeCalculatedString=String(cxxResultString)
+                }
+                ) {
+                    Text("=")  // 按钮显示
+                        .font(.title)
+                        .padding()
+                        .background(.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
             }
         }
         .padding()
