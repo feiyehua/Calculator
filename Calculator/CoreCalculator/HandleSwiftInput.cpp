@@ -13,6 +13,7 @@
 
 
 #include "HandleSwiftInput.hpp"
+#include<iostream>
 using namespace std;
 int getStringValue(string toBeCalculatedString,string* resultString)
 {
@@ -20,6 +21,7 @@ int getStringValue(string toBeCalculatedString,string* resultString)
     long double mathExpression[1000];
     int locOfPri[1000],numCount;
     char toBeCalculatedCString[1000]="";
+    cout<<toBeCalculatedString<<endl;
     strcpy(toBeCalculatedCString, toBeCalculatedString.c_str());
     parseMathExpression(toBeCalculatedCString,mathExpression,&numCount,locOfPri);
     getValue(mathExpression,locOfPri,numCount,&result);

@@ -22,7 +22,7 @@ struct CalculatorButton: View {
     var foregroundColor: Color  // 自定义前景颜色
     @State var isTapped=false
     var body: some View {
-        Button(action: {
+        /*Button(action: {
             toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
             isTapped = !isTapped;
         }) {
@@ -34,6 +34,19 @@ struct CalculatorButton: View {
                 .cornerRadius(10)
             
         }
-        .sensoryFeedback(.impact, trigger: isTapped)
+        .sensoryFeedback(.impact, trigger: isTapped)*/
+        ZStack{
+            Circle()
+                .fill(backgroundColor)
+                .onTapGesture {
+                    toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
+                    isTapped = !isTapped;
+                }
+                .sensoryFeedback(.impact, trigger: isTapped)
+            Text("\(displayedCharacter)")
+                .font(.title)
+                .padding()
+                .foregroundColor(foregroundColor)
+        }
     }
 }
