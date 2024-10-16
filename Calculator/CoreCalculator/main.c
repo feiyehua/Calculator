@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-07 00:23:00
- * @LastEditTime : 2024-10-15 21:24:39
+ * @LastEditTime : 2024-10-16 07:17:37
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : main.c
@@ -31,6 +31,7 @@ long double result;
 long double mathExpression[1000];
 int locOfPri[1000],numCount;
 char *endptr;
+#ifdef CMAKE
 int main(int argc,char* argv[])
 {
     //scanf("%s",testNumber);
@@ -45,6 +46,7 @@ int main(int argc,char* argv[])
     printf("%.15Lf\n",result);
     return 0;
 }
+#endif
 //(1+3)^4*((5/7*8-90)*65-4)/7*9+10-11
 //2*2^(4*3)
 //((5/7*8-90)*6^5-4)/7
