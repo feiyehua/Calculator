@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(CalculatorCore VERSION 0.1.0 LANGUAGES C)
-
+add_definitions(-DCMAKE)
 add_executable(CalculatorCore main.c ParseMathExpression.c GetValue.c)
 

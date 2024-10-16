@@ -1,7 +1,7 @@
 /*
  * @Author       : FeiYehua
  * @Date         : 2024-10-07 11:56:07
- * @LastEditTime : 2024-10-15 19:52:40
+ * @LastEditTime : 2024-10-16 12:38:14
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : ParseMathExpression.c
@@ -27,6 +27,7 @@
 #include"GetValue.h"
 #include<string.h>
 #include <stdio.h>
+#include<math.h>
 enum typeOfCal
 {
     NORMAL,SIN,COS,TAN,ARCSIN,ARCCOS,ARCTAN,LN
@@ -68,10 +69,24 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     locOfPri[*numCount]=3;
                     break;
                 }
+                case '-'://读到-号，说明下一个数在括号/函数内，或者下一个数字是未知数。
+                //将负号解读为-1，并在下一个数的位置标注为乘号
+                {
+                    mathExpression[*numCount]=-1;
+                    (*numCount)++;
+                    locOfPri[*numCount]=1;
+                    break;
+                }
+                case '+'://+号同理
+                {
+                    mathExpression[*numCount]=1;
+                    (*numCount)++;
+                    locOfPri[*numCount]=1;
+                    break;
+                }
                 case '(':
                 {
                     leftBracketCount++;
-                    leftBracketInfo[leftBracketCount].place=nextPtr;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
                     leftBracketInfo[leftBracketCount].typeOfPriCal=NORMAL;
                     break;
@@ -88,8 +103,58 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                         locOfPri[*numCount-1]=locOfPri[placeOfLeftBracket];
                         locOfPri[placeOfLeftBracket]*=-1;
                     }
-                    mathExpression[*numCount-1]=tmp;
+                    switch (leftBracketInfo[leftBracketCount].typeOfPriCal)
+                    {
+                    case SIN:
+                        mathExpression[*numCount-1]=sinl(tmp);
+                        break;
+                    case COS:
+                        mathExpression[*numCount-1]=cosl(tmp);
+                        break;
+                    case TAN:
+                        mathExpression[*numCount-1]=tanl(tmp);
+                        break;
+                    case LN:
+                        mathExpression[*numCount-1]=logl(tmp);
+                        break;
+                    default:
+                        mathExpression[*numCount-1]=tmp;
+                        break;
+                    }
+                    
                     leftBracketCount--;
+                    break;
+                }
+                case 's'://处理特殊函数：相当于提前读入一个括号+修改leftBracketInfo[leftBracketCount].typeOfPriCal值进行特判
+                {
+                    leftBracketCount++;
+                    leftBracketInfo[leftBracketCount].numcount=*numCount;
+                    leftBracketInfo[leftBracketCount].typeOfPriCal=SIN;
+                    nextPtr+=3;
+                    break;
+                }
+                case 'c':
+                {
+                    leftBracketCount++;
+                    leftBracketInfo[leftBracketCount].numcount=*numCount;
+                    leftBracketInfo[leftBracketCount].typeOfPriCal=COS;
+                    nextPtr+=3;
+                    break;
+                }
+                case 't':
+                {
+                    leftBracketCount++;
+                    leftBracketInfo[leftBracketCount].numcount=*numCount;
+                    leftBracketInfo[leftBracketCount].typeOfPriCal=TAN;
+                    nextPtr+=3;
+                    break;
+                }
+                case 'l':
+                {
+                    leftBracketCount++;
+                    leftBracketInfo[leftBracketCount].numcount=*numCount;
+                    leftBracketInfo[leftBracketCount].typeOfPriCal=LN;
+                    nextPtr+=2;
                     break;
                 }
                 default:
