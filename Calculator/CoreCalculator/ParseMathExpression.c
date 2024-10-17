@@ -30,7 +30,7 @@
 #include<math.h>
 enum typeOfCal
 {
-    NORMAL,SIN,COS,TAN,ARCSIN,ARCCOS,ARCTAN,LN
+    NORMAL,SIN,COS,TAN,ARCSIN,ARCCOS,ARCTAN,LN,LOG
 };
 struct bracketInfo
 {
@@ -117,6 +117,18 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     case LN:
                         mathExpression[*numCount-1]=logl(tmp);
                         break;
+                    case LOG:
+                        mathExpression[*numCount-1]=log10l(tmp);
+                        break;
+                    case ARCSIN:
+                        mathExpression[*numCount-1]=asinl(tmp);
+                        break;
+                    case ARCCOS:
+                        mathExpression[*numCount-1]=acosl(tmp);
+                        break;
+                    case ARCTAN:
+                        mathExpression[*numCount-1]=atanl(tmp);
+                        break;
                     default:
                         mathExpression[*numCount-1]=tmp;
                         break;
@@ -153,8 +165,37 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                 {
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
-                    leftBracketInfo[leftBracketCount].typeOfPriCal=LN;
-                    nextPtr+=2;
+                    if(*(originalExpression+2)=='(')
+                    {
+                        leftBracketInfo[leftBracketCount].typeOfPriCal=LN;
+                        nextPtr+=2;
+                    }
+                    else
+                    {
+                        leftBracketInfo[leftBracketCount].typeOfPriCal=LOG;
+                        nextPtr+=3;
+                    }
+                    break;
+                }
+                case 'a':
+                {
+                    leftBracketCount++;
+                    leftBracketInfo[leftBracketCount].numcount=*numCount;
+                    nextPtr+=3;
+                    originalExpression=nextPtr;
+                    switch (*originalExpression) {
+                        case 's':
+                            leftBracketInfo[leftBracketCount].typeOfPriCal=ARCSIN;
+                            break;
+                        case 'c':
+                            leftBracketInfo[leftBracketCount].typeOfPriCal=ARCCOS;
+                            break;
+                        case 't':
+                            leftBracketInfo[leftBracketCount].typeOfPriCal=ARCTAN;
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 }
                 default:
