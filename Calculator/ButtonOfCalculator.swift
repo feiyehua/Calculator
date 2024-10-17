@@ -23,13 +23,17 @@ struct CalculatorButton: View {
     @State var isTapped=false
     var body: some View {
         ZStack{
-            Circle()
+            let calcButton=Circle()
                 .fill(backgroundColor)
                 .onTapGesture {
                     toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
                     isTapped = !isTapped;
                 }
-                .sensoryFeedback(.impact, trigger: isTapped)
+            if #available(iOS 17, *) {
+                    // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                calcButton.sensoryFeedback(.impact, trigger: isTapped)
+                }
+                //.sensoryFeedback(.impact, trigger: isTapped)
             Text("\(displayedCharacter)")
                 .font(.title)
                 .lineLimit(1)
@@ -44,13 +48,16 @@ struct CalculatorButtonAC: View {
     @State var isTapped=false
     var body: some View {
         ZStack{
-            Circle()
+            let calcButton=Circle()
                 .fill(.black)
                 .onTapGesture {
                     toBeCalculatedString=""
                     isTapped = !isTapped
                 }
-                .sensoryFeedback(.impact, trigger: isTapped)
+            if #available(iOS 17, *) {
+                    // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                calcButton.sensoryFeedback(.success, trigger: isTapped)
+                }
             Text("AC")
                 .font(.title)
                 .bold()
@@ -64,7 +71,7 @@ struct CalculatorButtonEqual: View {
     @State var isTapped=false
     var body: some View {
         ZStack{
-            Circle()
+            let calcButton=Circle()
                 .fill(.black)
                 .onTapGesture {
                     isTapped = !isTapped
@@ -73,7 +80,10 @@ struct CalculatorButtonEqual: View {
                     getStringValue(cxxString,&cxxResultString)
                     toBeCalculatedString=String(cxxResultString)
                 }
-                .sensoryFeedback(.success, trigger: isTapped)
+            if #available(iOS 17, *) {
+                    // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                calcButton.sensoryFeedback(.success, trigger: isTapped)
+                }
             Text("=")
                 .font(.title)
                 .bold()

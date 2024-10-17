@@ -12,8 +12,6 @@
  ********************************************************************************/
 
 import SwiftUI
-//import CxxStdlib
-//struct buttomOfCalculator
 struct ContentView: View {
     var body: some View {
         TabView{
@@ -27,7 +25,7 @@ struct ContentView: View {
                 }
             HistoryView()
                 .tabItem{
-                    Label("History",systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                    Label("History",systemImage: "list.clipboard")
                 }
         }
     }
