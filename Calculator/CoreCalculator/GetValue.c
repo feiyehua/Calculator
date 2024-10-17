@@ -49,14 +49,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 mathExpression[i]=pow(mathExpression[i-1],mathExpression[i]);
                 mathExpression[i-1]=0;
                 locOfPri[i]=locOfPri[i-1];
-                if(locOfPri[i-1]>=0)
-                {
-                    locOfPri[i-1]*=-1;
-                }
-                else
-                {
-                    locOfPri[i-1]=0;
-                }
+                locOfPri[i-1]=0;
                 break;
             }
             case -1:
@@ -76,6 +69,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 mathExpression[i]=mathExpression[startOfBracket-1];
                 mathExpression[startOfBracket-1]=0;
                 locOfPri[i]=locOfPri[startOfBracket-1];
+                locOfPri[startOfBracket]=0;
                 locOfPri[startOfBracket-1]*=-1;
             }
         }
