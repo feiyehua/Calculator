@@ -24,9 +24,18 @@ struct CalculatorButton: View {
     @State var isPressed=false
     var body: some View {
         ZStack{
-            let calcButton=Circle()
+            Circle()
                 .fill(isPressed ? backgroundColor.opacity(0.6):backgroundColor.opacity(1))
                 .animation(.easeInOut(duration: 0.2), value: isPressed)
+            Text("\(displayedCharacter)")
+                .font(.title)
+                .lineLimit(1)
+                .padding()
+                .foregroundColor(foregroundColor)
+                .minimumScaleFactor(0.1)
+            let calcButton=Circle()
+                .fill(Color.red.opacity(0))
+                .contentShape(Circle())
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -42,13 +51,6 @@ struct CalculatorButton: View {
                 // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                 calcButton.sensoryFeedback(.impact, trigger: isTapped)
             }
-            //.sensoryFeedback(.impact, trigger: isTapped)
-            Text("\(displayedCharacter)")
-                .font(.title)
-                .lineLimit(1)
-                .padding()
-                .foregroundColor(foregroundColor)
-                .minimumScaleFactor(0.1)
         }
     }
 }
@@ -59,9 +61,17 @@ struct CalculatorButtonAC: View {
     @State var isPressed=false
     var body: some View {
         ZStack{
-            let calcButton=Circle()
+            Circle()
                 .fill(isPressed ? Color.black.opacity(0.6):Color.black.opacity(1))
                 .animation(.easeInOut(duration: 0.2), value: isPressed)
+            Text("AC")
+                .font(.title)
+                .bold()
+                .padding()
+                .foregroundColor(.red)
+            let calcButton=Circle()
+                .fill(Color.red.opacity(0))
+                .contentShape(Circle())
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -78,11 +88,6 @@ struct CalculatorButtonAC: View {
                 // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                 calcButton.sensoryFeedback(.success, trigger: isTapped)
             }
-            Text("AC")
-                .font(.title)
-                .bold()
-                .padding()
-                .foregroundColor(.red)
         }
     }
 }
@@ -93,9 +98,17 @@ struct CalculatorButtonEqual: View {
     @State var isPressed=false
     var body: some View {
         ZStack{
-            let calcButton=Circle()
+            Circle()
                 .fill(isPressed ? Color.black.opacity(0.6):Color.black.opacity(1))
                 .animation(.easeInOut(duration: 0.2), value: isPressed)
+            Text("=")
+                .font(.title)
+                .bold()
+                .padding()
+                .foregroundColor(.yellow)
+            let calcButton=Circle()
+                .fill(Color.red.opacity(0))
+                .contentShape(Circle())
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -117,11 +130,6 @@ struct CalculatorButtonEqual: View {
                 // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                 calcButton.sensoryFeedback(.success, trigger: isTapped)
             }
-            Text("=")
-                .font(.title)
-                .bold()
-                .padding()
-                .foregroundColor(.yellow)
         }
     }
 }

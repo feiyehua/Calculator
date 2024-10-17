@@ -28,7 +28,7 @@ struct CalculatorView: View {
             GeometryReader{geometry in
                 VStack {
                     //GeometryReader{ geometry in
-                        Text(lastExpression)  // 显示当前字符串
+                        Text(lastExpression)  // 显示上一个算式字符串
                             .font(.largeTitle)
                             .frame(width: geometry.size.width, height: geometry.size.height / 12,alignment:.leading)
                             .lineLimit(1)
