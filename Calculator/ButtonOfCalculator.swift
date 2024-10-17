@@ -22,19 +22,6 @@ struct CalculatorButton: View {
     var foregroundColor: Color  // 自定义前景颜色
     @State var isTapped=false
     var body: some View {
-        /*Button(action: {
-            toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
-            isTapped = !isTapped;
-        }) {
-            Text("\(displayedCharacter)")  // 按钮显示
-                .font(.title)
-                .padding()
-                .background(backgroundColor)
-                .foregroundColor(foregroundColor)
-                .cornerRadius(10)
-            
-        }
-        .sensoryFeedback(.impact, trigger: isTapped)*/
         ZStack{
             Circle()
                 .fill(backgroundColor)
@@ -45,8 +32,53 @@ struct CalculatorButton: View {
                 .sensoryFeedback(.impact, trigger: isTapped)
             Text("\(displayedCharacter)")
                 .font(.title)
+                .lineLimit(1)
                 .padding()
                 .foregroundColor(foregroundColor)
+                .minimumScaleFactor(0.1)
+        }
+    }
+}
+struct CalculatorButtonAC: View {
+    @Binding var toBeCalculatedString: String
+    @State var isTapped=false
+    var body: some View {
+        ZStack{
+            Circle()
+                .fill(.black)
+                .onTapGesture {
+                    toBeCalculatedString=""
+                    isTapped = !isTapped
+                }
+                .sensoryFeedback(.impact, trigger: isTapped)
+            Text("AC")
+                .font(.title)
+                .bold()
+                .padding()
+                .foregroundColor(.red)
+        }
+    }
+}
+struct CalculatorButtonEqual: View {
+    @Binding var toBeCalculatedString: String
+    @State var isTapped=false
+    var body: some View {
+        ZStack{
+            Circle()
+                .fill(.black)
+                .onTapGesture {
+                    isTapped = !isTapped
+                    let cxxString=std.string(toBeCalculatedString)
+                    var cxxResultString=std.string("")
+                    getStringValue(cxxString,&cxxResultString)
+                    toBeCalculatedString=String(cxxResultString)
+                }
+                .sensoryFeedback(.success, trigger: isTapped)
+            Text("=")
+                .font(.title)
+                .bold()
+                .padding()
+                .foregroundColor(.yellow)
         }
     }
 }

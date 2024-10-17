@@ -45,7 +45,16 @@ struct ContentView: View {
                     //}
                 }
                 .frame(height: geometry.size.height / 8)
-                MainButtons(toBeCalculatedString:$toBeCalculatedString)
+                TabView {
+                    VStack{
+                        MainButtons(toBeCalculatedString:$toBeCalculatedString)
+                    }
+                    VStack{
+                        ExpandedButtons(toBeCalculatedString:$toBeCalculatedString)
+                    }
+                }
+                .frame(height: geometry.size.height*7 / 8)
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             }
         }
         .padding()
