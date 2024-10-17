@@ -16,9 +16,10 @@ import SwiftUI
 
 struct MainButtons: View {
     @Binding var toBeCalculatedString:String
+    @Binding var lastExpression:String
     var body: some View {
         HStack {
-            CalculatorButtonAC(toBeCalculatedString:$toBeCalculatedString)
+            CalculatorButtonAC(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression)
             CalculatorButton(
                 displayedCharacter: "(", addToStringCharacter: "(",
                 toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
@@ -83,11 +84,11 @@ struct MainButtons: View {
             CalculatorButton(
                 displayedCharacter: ".", addToStringCharacter: ".",
                 toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
-            CalculatorButtonEqual(toBeCalculatedString: $toBeCalculatedString)
+            CalculatorButtonEqual(toBeCalculatedString: $toBeCalculatedString,lastExpression:$lastExpression)
         }
     }
 }
 #Preview {
     @State var a=""
-    MainButtons(toBeCalculatedString: $a)
+    MainButtons(toBeCalculatedString: $a,lastExpression: $a)
 }

@@ -45,6 +45,7 @@ struct CalculatorButton: View {
 }
 struct CalculatorButtonAC: View {
     @Binding var toBeCalculatedString: String
+    @Binding var lastExpression:String
     @State var isTapped=false
     var body: some View {
         ZStack{
@@ -53,6 +54,7 @@ struct CalculatorButtonAC: View {
                 .onTapGesture {
                     toBeCalculatedString=""
                     isTapped = !isTapped
+                    lastExpression=""
                 }
             if #available(iOS 17, *) {
                     // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
@@ -68,6 +70,7 @@ struct CalculatorButtonAC: View {
 }
 struct CalculatorButtonEqual: View {
     @Binding var toBeCalculatedString: String
+    @Binding var lastExpression:String
     @State var isTapped=false
     var body: some View {
         ZStack{
@@ -78,7 +81,10 @@ struct CalculatorButtonEqual: View {
                     let cxxString=std.string(toBeCalculatedString)
                     var cxxResultString=std.string("")
                     getStringValue(cxxString,&cxxResultString)
+                    lastExpression=toBeCalculatedString
+                    lastExpression.append("=")
                     toBeCalculatedString=String(cxxResultString)
+                    saveToFile(content: lastExpression+toBeCalculatedString+"\n")
                 }
             if #available(iOS 17, *) {
                     // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
