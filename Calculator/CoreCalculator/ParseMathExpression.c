@@ -103,6 +103,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
                     leftBracketInfo[leftBracketCount].typeOfPriCal=NORMAL;
+                    (*numCount)++;
                     break;
                 }
                 case ')':
@@ -156,6 +157,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
                     leftBracketInfo[leftBracketCount].typeOfPriCal=SIN;
+                    (*numCount)++;
                     nextPtr+=3;
                     break;
                 }
@@ -164,6 +166,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
                     leftBracketInfo[leftBracketCount].typeOfPriCal=COS;
+                    (*numCount)++;
                     nextPtr+=3;
                     break;
                 }
@@ -172,6 +175,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
                     leftBracketInfo[leftBracketCount].typeOfPriCal=TAN;
+                    (*numCount)++;
                     nextPtr+=3;
                     break;
                 }
@@ -189,6 +193,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                         leftBracketInfo[leftBracketCount].typeOfPriCal=LOG;
                         nextPtr+=3;
                     }
+                    (*numCount)++;
                     break;
                 }
                 case 'a':
@@ -210,6 +215,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                         default:
                             break;
                     }
+                    (*numCount)++;
                     break;
                 }
                 default:
