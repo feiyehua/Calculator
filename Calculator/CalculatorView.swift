@@ -28,17 +28,16 @@ struct CalculatorView: View {
             GeometryReader{geometry in
                 VStack {
                     //GeometryReader{ geometry in
-                    Text(lastExpression)  // 显示当前字符串
-                        .font(.largeTitle)
-                        .lineLimit(1)
-                        .frame(width: 300)
-                        .minimumScaleFactor(0.1)
-                        .frame(height: geometry.size.height / 12)
+                        Text(lastExpression)  // 显示当前字符串
+                            .font(.largeTitle)
+                            .frame(width: geometry.size.width, height: geometry.size.height / 12,alignment:.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.1)
                     HStack {
                         Text(toBeCalculatedString)  // 显示当前字符串
                             .font(.largeTitle)
                             .lineLimit(1)
-                            .frame(width: 300)
+                            .frame(width: geometry.size.width*0.8,alignment: .trailing)
                             .minimumScaleFactor(0.1)
                         let deleteButton = Button(action: {
                             
