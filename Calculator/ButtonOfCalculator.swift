@@ -21,19 +21,28 @@ struct CalculatorButton: View {
     var backgroundColor: Color  // 自定义背景颜色
     var foregroundColor: Color  // 自定义前景颜色
     @State var isTapped=false
+    @State var isPressed=false
     var body: some View {
         ZStack{
             let calcButton=Circle()
-                .fill(backgroundColor)
-                .onTapGesture {
-                    toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
-                    isTapped = !isTapped;
-                }
+                .fill(isPressed ? backgroundColor.opacity(0.6):backgroundColor.opacity(1))
+                .animation(.easeInOut(duration: 0.2), value: isPressed)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in
+                            isPressed = true // 按下时改变颜色深浅
+                        }
+                        .onEnded { _ in
+                            isPressed = false // 松开时恢复颜色
+                            toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
+                            isTapped = !isTapped;
+                        }
+                )
             if #available(iOS 17, *) {
-                    // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                 calcButton.sensoryFeedback(.impact, trigger: isTapped)
-                }
-                //.sensoryFeedback(.impact, trigger: isTapped)
+            }
+            //.sensoryFeedback(.impact, trigger: isTapped)
             Text("\(displayedCharacter)")
                 .font(.title)
                 .lineLimit(1)
@@ -47,19 +56,28 @@ struct CalculatorButtonAC: View {
     @Binding var toBeCalculatedString: String
     @Binding var lastExpression:String
     @State var isTapped=false
+    @State var isPressed=false
     var body: some View {
         ZStack{
             let calcButton=Circle()
-                .fill(.black)
-                .onTapGesture {
-                    toBeCalculatedString=""
-                    isTapped = !isTapped
-                    lastExpression=""
-                }
+                .fill(isPressed ? Color.black.opacity(0.6):Color.black.opacity(1))
+                .animation(.easeInOut(duration: 0.2), value: isPressed)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in
+                            isPressed = true // 按下时改变颜色深浅
+                        }
+                        .onEnded { _ in
+                            isPressed = false // 松开时恢复颜色
+                            toBeCalculatedString=""
+                            lastExpression=""
+                            isTapped = !isTapped;
+                        }
+                )
             if #available(iOS 17, *) {
-                    // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                 calcButton.sensoryFeedback(.success, trigger: isTapped)
-                }
+            }
             Text("AC")
                 .font(.title)
                 .bold()
@@ -72,24 +90,33 @@ struct CalculatorButtonEqual: View {
     @Binding var toBeCalculatedString: String
     @Binding var lastExpression:String
     @State var isTapped=false
+    @State var isPressed=false
     var body: some View {
         ZStack{
             let calcButton=Circle()
-                .fill(.black)
-                .onTapGesture {
-                    isTapped = !isTapped
-                    let cxxString=std.string(toBeCalculatedString)
-                    var cxxResultString=std.string("")
-                    getStringValue(cxxString,&cxxResultString)
-                    lastExpression=toBeCalculatedString
-                    lastExpression.append("=")
-                    toBeCalculatedString=String(cxxResultString)
-                    saveToFile(content: lastExpression+toBeCalculatedString+"\n")
-                }
+                .fill(isPressed ? Color.black.opacity(0.6):Color.black.opacity(1))
+                .animation(.easeInOut(duration: 0.2), value: isPressed)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in
+                            isPressed = true // 按下时改变颜色深浅
+                        }
+                        .onEnded { _ in
+                            isPressed = false // 松开时恢复颜色
+                            isTapped = !isTapped
+                            let cxxString=std.string(toBeCalculatedString)
+                            var cxxResultString=std.string("")
+                            getStringValue(cxxString,&cxxResultString)
+                            lastExpression=toBeCalculatedString
+                            lastExpression.append("=")
+                            toBeCalculatedString=String(cxxResultString)
+                            saveToFile(content: lastExpression+toBeCalculatedString+"\n")
+                        }
+                )
             if #available(iOS 17, *) {
-                    // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                 calcButton.sensoryFeedback(.success, trigger: isTapped)
-                }
+            }
             Text("=")
                 .font(.title)
                 .bold()
