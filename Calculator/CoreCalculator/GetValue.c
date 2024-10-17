@@ -23,6 +23,7 @@
 
 #include "GetValue.h"
 #include <stdio.h>
+#define __MATH_LONG_DOUBLE_CONSTANTS
 #include<math.h>
 int getTypeOfPri(int i)
 {

@@ -13,7 +13,7 @@
 
 
 #include "HandleSwiftInput.hpp"
-#include<iostream>
+
 using namespace std;
 int getStringValue(string toBeCalculatedString,string* resultString)
 {

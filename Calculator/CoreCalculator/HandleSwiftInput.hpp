@@ -14,10 +14,6 @@
 
 #ifndef HandleSwiftInput_hpp
 #define HandleSwiftInput_hpp
-
-#include <stdio.h>
-#include<string.h>
-#include <stdlib.h>
 extern "C"
 {
     #include"ParseMathExpression.h"
@@ -25,5 +21,6 @@ extern "C"
 }
 #include <sstream>
 #include<string>
+#include<iostream>
 int getStringValue(std::string,std::string*);
 #endif /* HandleSwiftInput_h */

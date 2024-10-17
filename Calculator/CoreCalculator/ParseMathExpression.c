@@ -21,12 +21,13 @@
             
     ********************************************************************************/
     
-
+#define M_El        0xa.df85458a2bb4a9bp-2L
+#define M_PIl       0xc.90fdaa22168c235p-2L //Xcode里面不认__MATH_LONG_DOUBLE_CONSTANTS宏，God knows why
 #include "ParseMathExpression.h"
-#include<stdlib.h>
 #include"GetValue.h"
+#include<stdlib.h>
 #include<string.h>
-#include <stdio.h>
+#include<stdio.h>
 #include<math.h>
 enum typeOfCal
 {
@@ -84,6 +85,19 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     locOfPri[*numCount]=1;
                     break;
                 }
+                case 'p':
+                {
+                    mathExpression[*numCount]=M_PIl;
+                    (*numCount)++;
+                    nextPtr++;
+                    break;
+                }
+                case 'e':
+                {
+                    mathExpression[*numCount]=M_El;
+                    (*numCount)++;
+                    break;
+                }
                 case '(':
                 {
                     leftBracketCount++;
@@ -103,7 +117,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                         locOfPri[*numCount-1]=locOfPri[placeOfLeftBracket];
                         locOfPri[placeOfLeftBracket]*=-1;
                     }
-                    switch (leftBracketInfo[leftBracketCount].typeOfPriCal)
+                    switch (leftBracketInfo[leftBracketCount].typeOfPriCal)//检查括号是否涉及特殊函数
                     {
                     case SIN:
                         mathExpression[*numCount-1]=sinl(tmp);
