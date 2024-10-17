@@ -31,21 +31,28 @@ struct CalculatorView: View {
                         Text(toBeCalculatedString)  // 显示当前字符串
                             .font(.largeTitle)
                             .lineLimit(1)
-                        //.padding()
                             .frame(width: 300)
                             .minimumScaleFactor(0.1)
                         let deleteButton = Button(action: {
-                            if !toBeCalculatedString.isEmpty
-                            {
-                                toBeCalculatedString.removeLast()
-                                isDeleteTapped = !isDeleteTapped
-                            }
+                            
                         }) {
                             Image(systemName: "delete.left")  // 使用系统垃圾桶图标
                                 .font(.title)
                                 .foregroundColor(.red)
+                                .onTapGesture {
+                                    if !toBeCalculatedString.isEmpty
+                                    {
+                                        toBeCalculatedString.removeLast()
+                                        isDeleteTapped = !isDeleteTapped
+                                    }
+                                }
+                                .onLongPressGesture(perform: {
+                                        toBeCalculatedString=""
+                                        isDeleteTapped = !isDeleteTapped
+                                    })
                             //.padding()
                         }
+                        
                         if #available(iOS 17, *) {
                                 // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
                             deleteButton.sensoryFeedback(.impact, trigger: isDeleteTapped)
