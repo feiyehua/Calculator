@@ -15,7 +15,7 @@
 import Foundation
 import SwiftUI
 
-struct TestView: View {
+/*struct TestView: View {
     @State private var fileContent: [String] = []
     
     var body: some View {
@@ -38,10 +38,8 @@ struct TestView: View {
             }
         }
     }
-    
-    
 }
-
+*/
 func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     return paths[0]
@@ -96,8 +94,4 @@ func clearHistory() -> Void{
         return
     }
 }
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestView()
-    }
-}
+

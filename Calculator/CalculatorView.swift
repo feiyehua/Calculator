@@ -18,6 +18,7 @@ struct CalculatorView: View {
     @State private var toBeCalculatedString = ""  // 用于存储字符串
     @State private var isDeleteTapped=false
     @State private var lastExpression=""
+    @State private var buttonProfile=true
     init() {
         // 设置分页指示器的颜色
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.black  // 当前页的颜色
@@ -68,10 +69,10 @@ struct CalculatorView: View {
                     .frame(height: geometry.size.height / 12)
                     TabView {
                         VStack{
-                            MainButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression: $lastExpression)
+                            MainButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile)
                         }
                         VStack{
-                            ExpandedButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression)
+                            ExpandedButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression,buttonProfile:$buttonProfile)
                         }
                     }
                     .frame(height: geometry.size.height*5 / 6)

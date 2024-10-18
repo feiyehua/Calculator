@@ -1,0 +1,15 @@
+{
+  "originHash" : "822df50d76b92b4b40366c6b7a29f5c536599e88503423830b6529b5a65b1d34",
+  "pins" : [
+    {
+      "identity" : "partialsheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AndreaMiotto/PartialSheet.git",
+      "state" : {
+        "revision" : "6c61890976181274ea7baf6a4c297418346db799",
+        "version" : "3.1.1"
+      }
+    }
+  ],
+  "version" : 3
+}

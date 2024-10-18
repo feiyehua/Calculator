@@ -96,16 +96,22 @@ struct CalculatorButtonEqual: View {
     @Binding var lastExpression:String
     @State var isTapped=false
     @State var isPressed=false
+    @Binding var buttonProfile:Bool
     var body: some View {
         ZStack{
             Circle()
                 .fill(isPressed ? Color.black.opacity(0.6):Color.black.opacity(1))
                 .animation(.easeInOut(duration: 0.2), value: isPressed)
-            Text("=")
+            Text("=")//buttonProfile=true
                 .font(.title)
                 .bold()
                 .padding()
-                .foregroundColor(.yellow)
+                .foregroundColor(buttonProfile ? Color.yellow.opacity(1):Color.yellow.opacity(0))
+            Text("x")//buttonProfile=false
+                .font(.title)
+                .bold()
+                .padding()
+                .foregroundColor(buttonProfile ? Color.yellow.opacity(0):Color.yellow.opacity(1))
             let calcButton=Circle()
                 .fill(Color.red.opacity(0))
                 .contentShape(Circle())
@@ -117,13 +123,20 @@ struct CalculatorButtonEqual: View {
                         .onEnded { _ in
                             isPressed = false // 松开时恢复颜色
                             isTapped = !isTapped
-                            let cxxString=std.string(toBeCalculatedString)
-                            var cxxResultString=std.string("")
-                            getStringValue(cxxString,&cxxResultString)
-                            lastExpression=toBeCalculatedString
-                            lastExpression.append("=")
-                            toBeCalculatedString=String(cxxResultString)
-                            saveToFile(content: lastExpression+toBeCalculatedString+"\n")
+                            if(buttonProfile==true)
+                            {
+                                let cxxString=std.string(toBeCalculatedString)
+                                var cxxResultString=std.string("")
+                                getStringValue(cxxString,&cxxResultString)
+                                lastExpression=toBeCalculatedString
+                                lastExpression.append("=")
+                                toBeCalculatedString=String(cxxResultString)
+                                saveToFile(content: lastExpression+toBeCalculatedString+"\n")
+                            }
+                            else
+                            {
+                                toBeCalculatedString.append("x")
+                            }
                         }
                 )
             if #available(iOS 17, *) {

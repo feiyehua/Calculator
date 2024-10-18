@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C8C7498D2CC254DA002B8BBB /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C8C7498C2CC254DA002B8BBB /* PartialSheet */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C81231D02CB1817D000B2A48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +33,22 @@
 		C81231D92CB1817D000B2A48 /* CalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C8C7498E2CC2556B002B8BBB /* Exceptions for "Calculator" folder in "Calculator" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CoreCalculator/main.c,
+			);
+			target = C81231BD2CB1817C000B2A48 /* Calculator */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C81231C02CB1817C000B2A48 /* Calculator */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C8C7498E2CC2556B002B8BBB /* Exceptions for "Calculator" folder in "Calculator" target */,
+			);
 			path = Calculator;
 			sourceTree = "<group>";
 		};
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8C7498D2CC254DA002B8BBB /* PartialSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +130,7 @@
 			);
 			name = Calculator;
 			packageProductDependencies = (
+				C8C7498C2CC254DA002B8BBB /* PartialSheet */,
 			);
 			productName = Calculator;
 			productReference = C81231BE2CB1817C000B2A48 /* Calculator.app */;
@@ -196,6 +215,9 @@
 			);
 			mainGroup = C81231B52CB1817C000B2A48;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C8C7498B2CC254DA002B8BBB /* XCRemoteSwiftPackageReference "PartialSheet" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C81231BF2CB1817C000B2A48 /* Products */;
 			projectDirPath = "";
@@ -415,7 +437,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = feiyehua.Calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -461,7 +483,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = feiyehua.Calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -607,6 +629,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C8C7498B2CC254DA002B8BBB /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C8C7498C2CC254DA002B8BBB /* PartialSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8C7498B2CC254DA002B8BBB /* XCRemoteSwiftPackageReference "PartialSheet" */;
+			productName = PartialSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C81231B62CB1817C000B2A48 /* Project object */;
 }

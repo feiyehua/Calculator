@@ -17,6 +17,7 @@ import SwiftUI
 struct ExpandedButtons: View {
     @Binding var toBeCalculatedString:String
     @Binding var lastExpression:String
+    @Binding var buttonProfile:Bool
     var body: some View {
         HStack {
             CalculatorButtonAC(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression)
@@ -83,7 +84,7 @@ struct ExpandedButtons: View {
             CalculatorButton(
                 displayedCharacter: "^", addToStringCharacter: "^",
                 toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
-            CalculatorButtonEqual(toBeCalculatedString: $toBeCalculatedString,lastExpression: $lastExpression)
+            CalculatorButtonEqual(toBeCalculatedString: $toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile)
         }
 
     }
@@ -91,5 +92,6 @@ struct ExpandedButtons: View {
 
 #Preview {
     @State var a=""
-    ExpandedButtons(toBeCalculatedString: $a,lastExpression: $a)
+    @State var b=false
+    ExpandedButtons(toBeCalculatedString: $a,lastExpression: $a,buttonProfile: $b)
 }

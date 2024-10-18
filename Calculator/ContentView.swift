@@ -12,21 +12,26 @@
  ********************************************************************************/
 
 import SwiftUI
+import PartialSheet
 struct ContentView: View {
     var body: some View {
-        TabView{
-            CalculatorView()
-                .tabItem{
-                    Label("Calculator",systemImage: "x.squareroot")
-                }
-            ChartView()
-                .tabItem{
-                    Label("Chart",systemImage: "chart.xyaxis.line")
-                }
-            HistoryView()
-                .tabItem{
-                    Label("History",systemImage: "list.clipboard")
-                }
+        GeometryReader{geometry in
+            TabView{
+                CalculatorView()
+                    .tabItem{
+                        Label("Calculator",systemImage: "x.squareroot")
+                    }
+                GraphView()
+                    .attachPartialSheetToRoot()
+                    .tabItem{
+                        Label("Graph",systemImage: "chart.xyaxis.line")
+                    }
+                    //.frame(height: 0.9 * geometry.size.height)
+                HistoryView()
+                    .tabItem{
+                        Label("History",systemImage: "list.clipboard")
+                    }
+            }
         }
     }
 }
