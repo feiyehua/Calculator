@@ -86,7 +86,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 mathExpression[i]=mathExpression[startOfBracket-1];
                 mathExpression[startOfBracket-1]=0;
                 locOfPri[i]=locOfPri[startOfBracket-1];
-                locOfPri[startOfBracket]=0;
+                locOfPri[startOfBracket]=(startOfBracket==i ? locOfPri[startOfBracket] : 0);
                 locOfPri[startOfBracket-1]*=-1;
                 break;
             }
