@@ -23,7 +23,6 @@
 
 #include "GetValue.h"
 #include <stdio.h>
-#define __MATH_LONG_DOUBLE_CONSTANTS
 #include<math.h>
 int getTypeOfPri(int i)
 {
@@ -40,24 +39,42 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
         printf("%Lf,%d\n",mathExpression[i],locOfPri[i]);
     }
     printf("\n");
+    int flag=0;
     for(int i=1;i<numCount;i++)
     {
-        switch(getTypeOfPri(locOfPri[i]))
+        //用一个flag标志^的类型
+        //如果此前读到过-3，即涉及括号，则再次读到3时，locOfPri[i-1]=0
+        //如果没有，则locOfPri[i-1]*=-1
+//        示例0：
+//        5.000000,0
+//        2.718282,1
+//        2.000000,3
+//        flag=0，计算乘方后应该将1前移并补上-1
+//        示例1:
+        switch(locOfPri[i])
         {
             case 3:
             {
                 mathExpression[i]=pow(mathExpression[i-1],mathExpression[i]);
                 mathExpression[i-1]=0;
                 locOfPri[i]=locOfPri[i-1];
-                locOfPri[i-1]=0;
+                //locOfPri[i-1]=0;
+                switch (flag) {
+                    case 1:
+                        locOfPri[i-1]=0;
+                        break;
+                    case 0:
+                        locOfPri[i-1]*=-1;
+                        break;
+                    default:
+                        break;
+                }
+                flag=0;
                 break;
             }
-            case -1:
+            case -3:
             {
-                if(locOfPri[i]!=-3)
-                {
-                    continue;
-                }
+                flag=1;
                 //printf("%Lf,i\n",mathExpression[i]);
                 int startOfBracket=i;
                 i++;
@@ -71,7 +88,10 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 locOfPri[i]=locOfPri[startOfBracket-1];
                 locOfPri[startOfBracket]=0;
                 locOfPri[startOfBracket-1]*=-1;
+                break;
             }
+            default:
+                break;
         }
     }
     for(int i=0;i<numCount;i++)

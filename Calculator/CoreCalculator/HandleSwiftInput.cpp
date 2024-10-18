@@ -17,9 +17,11 @@
 using namespace std;
 int getStringValue(string toBeCalculatedString,string* resultString)
 {
-    long double result;
+    long double result=0L;
     long double mathExpression[1000];
-    int locOfPri[1000],numCount;
+    memset(mathExpression, 0, sizeof(mathExpression));
+    int locOfPri[1000],numCount=0;
+    memset(locOfPri, 0, sizeof(locOfPri));
     char toBeCalculatedCString[1000]="";
     cout<<toBeCalculatedString<<endl;
     strcpy(toBeCalculatedCString, toBeCalculatedString.c_str());

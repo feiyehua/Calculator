@@ -45,6 +45,8 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
     *numCount=0;
     //memset(mathExpression,0,sizeof(mathExpression));
     char *nextPtr=originalExpression;
+    //printf("%d,leftBracketCount\n",leftBracketCount);
+    leftBracketCount=0;
     while(*nextPtr!='\0'&&*nextPtr!='\n')
     {
         originalExpression=nextPtr;
