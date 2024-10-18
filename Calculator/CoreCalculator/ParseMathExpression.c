@@ -40,7 +40,7 @@ struct bracketInfo
     enum typeOfCal typeOfPriCal;//存储括号前涉及的运算种类
 }leftBracketInfo[1000];
 int leftBracketCount;
-int parseMathExpression(char* originalExpression, long double* mathExpression, int* numCount, int* locOfPri)
+int parseMathExpression(char* originalExpression, long double* mathExpression, int* numCount, int* locOfPri,double x)
 {
     *numCount=0;
     //memset(mathExpression,0,sizeof(mathExpression));
@@ -97,6 +97,12 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                 case 'e':
                 {
                     mathExpression[*numCount]=M_El;
+                    (*numCount)++;
+                    break;
+                }
+                case 'x':
+                {
+                    mathExpression[*numCount]=x;
                     (*numCount)++;
                     break;
                 }

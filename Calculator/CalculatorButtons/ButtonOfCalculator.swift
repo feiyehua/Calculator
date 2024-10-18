@@ -127,7 +127,7 @@ struct CalculatorButtonEqual: View {
                             {
                                 let cxxString=std.string(toBeCalculatedString)
                                 var cxxResultString=std.string("")
-                                getStringValue(cxxString,&cxxResultString)
+                                getStringValue(cxxString,&cxxResultString,0)
                                 lastExpression=toBeCalculatedString
                                 lastExpression.append("=")
                                 toBeCalculatedString=String(cxxResultString)

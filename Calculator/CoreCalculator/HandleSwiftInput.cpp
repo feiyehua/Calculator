@@ -15,7 +15,7 @@
 #include "HandleSwiftInput.hpp"
 
 using namespace std;
-int getStringValue(string toBeCalculatedString,string* resultString)
+double getStringValue(string toBeCalculatedString,string* resultString,double x)
 {
     long double result=0L;
     long double mathExpression[1000];
@@ -25,7 +25,7 @@ int getStringValue(string toBeCalculatedString,string* resultString)
     char toBeCalculatedCString[1000]="";
     cout<<toBeCalculatedString<<endl;
     strcpy(toBeCalculatedCString, toBeCalculatedString.c_str());
-    parseMathExpression(toBeCalculatedCString,mathExpression,&numCount,locOfPri);
+    parseMathExpression(toBeCalculatedCString,mathExpression,&numCount,locOfPri,x);
     getValue(mathExpression,locOfPri,numCount,&result);
     // 创建 ostringstream 对象
     std::ostringstream oss;
@@ -36,5 +36,5 @@ int getStringValue(string toBeCalculatedString,string* resultString)
     
     // 获取转换后的字符串
     *resultString = oss.str();
-    return 0;
+    return result;
 }

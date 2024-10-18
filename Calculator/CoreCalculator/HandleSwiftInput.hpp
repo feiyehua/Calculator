@@ -22,5 +22,5 @@ extern "C"
 #include <sstream>
 #include<string>
 #include<iostream>
-int getStringValue(std::string,std::string*);
+double getStringValue(std::string,std::string*,double);
 #endif /* HandleSwiftInput_h */

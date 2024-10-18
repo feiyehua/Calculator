@@ -16,5 +16,5 @@
 #define ParseMathExpression_h
 
 
-int parseMathExpression(char*,long double*,int*,int*);
+int parseMathExpression(char*,long double*,int*,int*,double);
 #endif /* ParseMathExpression_h */
