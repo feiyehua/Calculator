@@ -34,11 +34,13 @@ int getTypeOfPri(int i)
 }
 int getValue(long double* mathExpression,int* locOfPri,int numCount, long double* result)
 {
+#if DEBUG
     for(int i=0;i<numCount;i++)
     {
         printf("%Lf,%d\n",mathExpression[i],locOfPri[i]);
     }
     printf("\n");
+#endif
     int flag=0;
     for(int i=1;i<numCount;i++)
     {
@@ -95,11 +97,13 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 break;
         }
     }
+#if DEBUG
     for(int i=0;i<numCount;i++)
     {
         printf("%Lf,%d\n",mathExpression[i],locOfPri[i]);
     }
     printf("\n");
+#endif
     for(int i=1;i<numCount;i++)
     {
         switch(getTypeOfPri(locOfPri[i]))

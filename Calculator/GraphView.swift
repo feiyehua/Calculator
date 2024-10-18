@@ -23,6 +23,7 @@ struct GraphView: View {
     @State private var isDeleteTapped = false
     @State private var toBeCalculatedString=""
     @State private var refreshNeeded = false
+    @State private var isCropTapped = false
     @State private var pointsInfo:[pointInfo] = []
     struct pointInfo:Identifiable{
         var id=UUID();
@@ -43,10 +44,11 @@ struct GraphView: View {
     }
     var body: some View {
         NavigationView{
-            ZStack {
+            VStack {
                 Chart(pointsInfo){ point in
                     PointMark(x: .value("x", point.x), y: .value("y",point.y))
                 }
+                .animation(.easeOut(duration: 0.5),value: isTapped)
                 .padding()
             }
             .navigationTitle("Graph")
@@ -54,6 +56,7 @@ struct GraphView: View {
                 ToolbarItem(placement: .topBarLeading)
                 {
                     let editButton=Button(action: {
+                        pointsInfo.removeAll()
                         isTapped.toggle()
                     }) {
                         Image(systemName: "square.and.pencil")
@@ -67,13 +70,25 @@ struct GraphView: View {
                     let deleteButton=Button(action: {
                         isDeleteTapped.toggle()
                         refreshNeeded.toggle()
+                        pointsInfo.removeAll()
                         toBeCalculatedString=""
                     }) {
-                        Image(systemName: "trash") // 使用系统图标
+                        Image(systemName: "eraser.line.dashed") // 使用系统图标
                             .foregroundStyle(.red)
                     }
                     if #available(iOS 17, *) {
                         deleteButton.sensoryFeedback(.success, trigger: isDeleteTapped)
+                    }
+                }
+                ToolbarItem(placement: .bottomBar){
+                    let cropButton=Button(action: {
+                        isCropTapped.toggle()
+                    }) {
+                        Image(systemName: "eraser.line.dashed") // 使用系统图标
+                            .foregroundStyle(.red)
+                    }
+                    if #available(iOS 17, *) {
+                        cropButton.sensoryFeedback(.impact, trigger: isCropTapped)
                     }
                 }
             }

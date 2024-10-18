@@ -35,7 +35,7 @@ char *endptr;
 int main(int argc,char* argv[])
 {
     //scanf("%s",testNumber);
-    parseMathExpression(argv[1],mathExpression,&numCount,locOfPri);
+    parseMathExpression(argv[1],mathExpression,&numCount,locOfPri,0);
     #if 0
     for(int i=0;i<numCount;i++)
     {
