@@ -33,6 +33,7 @@ struct CalculatorView: View {
                             .frame(width: geometry.size.width, height: geometry.size.height / 12,alignment:.leading)
                             .lineLimit(1)
                             .minimumScaleFactor(0.1)
+                            
                     HStack {
                         Text(toBeCalculatedString)  // 显示当前字符串
                             .font(.largeTitle)

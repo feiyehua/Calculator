@@ -78,8 +78,9 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 //printf("%Lf,i\n",mathExpression[i]);
                 int startOfBracket=i;
                 i++;
-                while(locOfPri[i]==0)
+                while(locOfPri[i]!=3)
                 {
+                    locOfPri[i]=0;
                     i++;
                 }
                 i--;
@@ -122,8 +123,9 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 //printf("%Lf,i\n",mathExpression[i]);
                 int startOfBracket=i;
                 i++;
-                while(locOfPri[i]==0)
+                while(locOfPri[i]!=locOfPri[startOfBracket]*-1)
                 {
+                    locOfPri[i]=0;
                     i++;
                 }
                 i--;

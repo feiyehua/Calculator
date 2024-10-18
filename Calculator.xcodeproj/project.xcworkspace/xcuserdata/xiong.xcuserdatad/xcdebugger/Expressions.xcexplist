@@ -4,6 +4,14 @@
    <ContextStates>
       <ContextState
          contextName = "parseMathExpression:ParseMathExpression.c">
+         <PersistentStrings>
+            <PersistentString
+               value = "*originalExpression">
+            </PersistentString>
+            <PersistentString
+               value = "*nextPtr">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "getValue:GetValue.c">

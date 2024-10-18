@@ -202,7 +202,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                 {
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
-                    nextPtr+=3;
+                    nextPtr+=2;
                     originalExpression=nextPtr;
                     switch (*originalExpression) {
                         case 's':
@@ -217,6 +217,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                         default:
                             break;
                     }
+                    nextPtr+=4;
                     (*numCount)++;
                     break;
                 }
