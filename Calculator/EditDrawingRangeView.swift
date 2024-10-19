@@ -15,11 +15,22 @@
 import SwiftUI
 
 struct EditDrawingRangeView: View {
+    @Binding var startValue:Double
+    @Binding var endValue:Double
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            TextField("Start", value: $startValue, format: .number, prompt: Text("Enter start point"))
+                .keyboardType(.numbersAndPunctuation)
+            TextField("End", value: $endValue, format:.number,prompt: Text("Enter end point"))
+                .keyboardType(.numbersAndPunctuation)
+        }
+        .textFieldStyle(.roundedBorder)
+        .padding()
     }
 }
-
+@available(iOS 18.0, *)
 #Preview {
-    EditDrawingRangeView()
+    @Previewable @State var a=0.0
+    @Previewable @State var b = 0.0
+    EditDrawingRangeView(startValue: $a, endValue: $b)
 }

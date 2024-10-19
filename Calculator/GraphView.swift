@@ -15,9 +15,8 @@
 import SwiftUI
 import PartialSheet
 import Charts
-import math_h
+
 struct GraphView: View {
-    
     @State private var isDismissed = false
     @State private var isTapped = false
     @State private var isDeleteTapped = false
@@ -25,15 +24,20 @@ struct GraphView: View {
     @State private var refreshNeeded = false
     @State private var isCropTapped = false
     @State private var pointsInfo:[pointInfo] = []
+    @State private var startValue = -10.0
+    @State private var endValue = 10.0
     struct pointInfo:Identifiable{
         var id=UUID();
         var x:Double;
         var y:Double;
     }
     func getMultiplePointsValue(startValue:Double,endValue:Double, pointsInfo:inout [pointInfo],toBeCalculatedString:String) -> Void{
-        for i in stride(from: startValue, through: endValue, by: (endValue-startValue)/1000)
+        if !(toBeCalculatedString=="")
         {
-            pointsInfo.append(pointInfo(x: i, y: getPointValue(toBeCalculatedString: toBeCalculatedString, x: i)))
+            for i in stride(from: startValue, through: endValue, by: (endValue-startValue)/1000)
+            {
+                pointsInfo.append(pointInfo(x: i, y: getPointValue(toBeCalculatedString: toBeCalculatedString, x: i)))
+            }
         }
     }
     func getPointValue(toBeCalculatedString:String,x:Double) -> Double
@@ -84,7 +88,7 @@ struct GraphView: View {
                     let cropButton=Button(action: {
                         isCropTapped.toggle()
                     }) {
-                        Image(systemName: "eraser.line.dashed") // 使用系统图标
+                        Image(systemName: "crop") // 使用系统图标
                             .foregroundStyle(.red)
                     }
                     if #available(iOS 17, *) {
@@ -97,11 +101,17 @@ struct GraphView: View {
         .partialSheet(isPresented: $isTapped,
                       onDismiss: {
             refreshNeeded.toggle()
-            getMultiplePointsValue(startValue: -10, endValue: 4, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedString)
+            getMultiplePointsValue(startValue: startValue, endValue: endValue, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedString)
         },content:{
             GraphKeyboardView(passedString: $toBeCalculatedString)
         })
         
+        .partialSheet(isPresented: $isCropTapped, onDismiss: {
+            refreshNeeded.toggle()
+            getMultiplePointsValue(startValue: startValue, endValue: endValue, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedString)
+        },content: {
+            EditDrawingRangeView(startValue: $startValue, endValue: $endValue)
+        })
     }
     
 }
