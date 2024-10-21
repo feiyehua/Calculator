@@ -3,11 +3,17 @@
 ## Feature
 
 Long expression parse
+
 Support multiple brackets
+
 Support Basic elementary functions
+
 Get the value of a parametric expression
+
 SwiftUI interface
+
 Haptic feedback on keyboard
+
 
 ## Build 
 Build with Xcode (You may need Xcode Version 16.0 (16A242d) or above to build).
