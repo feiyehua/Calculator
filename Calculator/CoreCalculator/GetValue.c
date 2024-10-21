@@ -48,11 +48,17 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
         //如果此前读到过-3，即涉及括号，则再次读到3时，locOfPri[i-1]=0
         //如果没有，则locOfPri[i-1]*=-1
 //        示例0：
-//        5.000000,0
-//        2.718282,1
-//        2.000000,3
+//        5.000000,0                                        5.000000,0
+//        2.718282,1                         -------->>>    0.000000,-1
+//        2.000000,3                                        7.389056,1
 //        flag=0，计算乘方后应该将1前移并补上-1
 //        示例1:
+//        算式：5*e^(1+1)
+//        5.000000,0                                        5.000000,0
+//        0.000000,-1                                       0.000000,-1
+//        2.718282,1                         -------->>>    0.000000,0
+//        2.000000,3 i                                      7.389056,1 i
+//        flag=1,则需要将locOfPri[i-1]置0
         switch(locOfPri[i])
         {
             case 3:
@@ -86,11 +92,23 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                     i++;
                 }
                 i--;
+//                操作结束后：
+//                  5.000000,0
+//                  2.718282,1
+//                  0.000000,-3 startOfBracket
+//                  0.000000，0 i
+//                  2.000000,3
+//
+//                  5.000000,0                                          5.000000,0
+//                  2.718282,1                                          0.000000,-1
+//                  0.000000,-3 startOfBracket，i        -------->>>    2.718282,1 startOfBracket，i
+//                  2.000000,3                                          2.000000,3
                 mathExpression[i]=mathExpression[startOfBracket-1];
                 mathExpression[startOfBracket-1]=0;
                 locOfPri[i]=locOfPri[startOfBracket-1];
                 locOfPri[startOfBracket]=(startOfBracket==i ? locOfPri[startOfBracket] : 0);
-                locOfPri[startOfBracket-1]*=-1;
+//              如果3、-3标记下标只差1，那么不继续修改locOfPri[startOfBracket]；否则置0
+                locOfPri[startOfBracket-1]*=-1;//乘-1，标记出现了中间需要被忽略的0
                 break;
             }
             default:
@@ -122,7 +140,11 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 locOfPri[i]=0;
                 break;
             }
-            case -1:
+            case -1://有括号出现过的情况
+//                1,0
+//                0,-1 startOfBracket
+//                0,0 i
+//                3,1
             {
                 //printf("%Lf,i\n",mathExpression[i]);
                 int startOfBracket=i;
@@ -135,7 +157,6 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
                 i--;
                 mathExpression[i]=mathExpression[startOfBracket-1];
                 mathExpression[startOfBracket-1]=0;
-                locOfPri[i+1]=locOfPri[startOfBracket]*-1;
                 locOfPri[startOfBracket]=0;
             }
         }

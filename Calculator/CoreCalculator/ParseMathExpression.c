@@ -144,7 +144,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
                     leftBracketInfo[leftBracketCount].typeOfPriCal=NORMAL;
-                    (*numCount)++;
+                    (*numCount)++;//相当于在括号后添加了一个“0+”，方便处理连续括号
                     break;
                 }
                 case ')':
