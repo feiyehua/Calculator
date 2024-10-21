@@ -29,30 +29,30 @@
 #include<string.h>
 #include<stdio.h>
 #include<math.h>
-enum typeOfCal
+enum typeOfCal//枚举涉及到的函数类型，提高代码可读性
 {
     NORMAL,SIN,COS,TAN,ARCSIN,ARCCOS,ARCTAN,LN,LOG
 };
-struct bracketInfo
+struct bracketInfo//存储一个括号的信息
 {
-    char* place;
-    int numcount;
+    int numcount;//存储括号中含有的数字数量
     enum typeOfCal typeOfPriCal;//存储括号前涉及的运算种类
 }leftBracketInfo[1000];
-int leftBracketCount;
-int parseMathExpression(char* originalExpression, long double* mathExpression, int* numCount, int* locOfPri,double x)
+int leftBracketCount;//存储还未处理的左括号个数
+int parseMathExpression(char* originalExpression, long double* mathExpression, int* numCount, int* locOfPri,double x)//表达式解析的核心函数
+//locOfPri存储了数字i前的一个符号
 {
     *numCount=0;
-    //memset(mathExpression,0,sizeof(mathExpression));
     char *nextPtr=originalExpression;
-    //printf("%d,leftBracketCount\n",leftBracketCount);
     leftBracketCount=0;
-    while(*nextPtr!='\0'&&*nextPtr!='\n')
+    while(*nextPtr!='\0'&&*nextPtr!='\n')//这个函数一直持续到解析完整个字符串
     {
         originalExpression=nextPtr;
         mathExpression[*numCount]=strtold(originalExpression,&nextPtr);
-        //printf("%Lf,%d\n",mathExpression[*numCount],*numCount);
-        if(nextPtr==originalExpression)
+        //使用strtold函数，将表达式转化为一个long double型
+        //strtold函数会自动应对数字前的+、-号，无法处理* / 和乘方符号
+        //第二个参数是一个二重指针，是结束解析的位置
+        if(nextPtr==originalExpression)//这说明前方没有可以解析的数字
         {
             nextPtr++;
             switch (*originalExpression)
@@ -73,7 +73,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     break;
                 }
                 case '-'://读到-号，说明下一个数在括号/函数内，或者下一个数字是未知数。
-                //将负号解读为-1，并在下一个数的位置标注为乘号
+                    //将负号解读为-1，并在下一个数的位置标注为乘号
                 {
                     mathExpression[*numCount]=-1;
                     (*numCount)++;
@@ -87,7 +87,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     locOfPri[*numCount]=1;
                     break;
                 }
-                case 'p':
+                case 'p'://读到了pi、e、x等字母
                 {
                     mathExpression[*numCount]=M_PIl;
                     (*numCount)++;
@@ -106,7 +106,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     (*numCount)++;
                     break;
                 }
-                case '(':
+                case '('://读到了左括号：左括号的相关信息
                 {
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
@@ -115,6 +115,12 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     break;
                 }
                 case ')':
+                    //读到了右括号，此时去找到相应的左括号信息
+                    //括号的种类可以表示为两种：
+                    //1、括号内没有更多的括号
+                    //2、括号内还嵌套了更多括号
+                    //由于每个左括号都能和右括号配对，所以当读到右括号时，与其配对的必然是上一个左括号，且其中必然没有其他括号
+                    //因此可以直接求值
                 {
                     long double tmp=0;
                     int placeOfLeftBracket=leftBracketInfo[leftBracketCount].numcount;
@@ -126,38 +132,37 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                         locOfPri[*numCount-1]=locOfPri[placeOfLeftBracket];
                         locOfPri[placeOfLeftBracket]*=-1;
                     }
-                    switch (leftBracketInfo[leftBracketCount].typeOfPriCal)//检查括号是否涉及特殊函数
+                    switch (leftBracketInfo[leftBracketCount].typeOfPriCal)//检查括号是否涉及特殊函数，如果涉及，则修改计算得出的值
                     {
-                    case SIN:
-                        mathExpression[*numCount-1]=sinl(tmp);
-                        break;
-                    case COS:
-                        mathExpression[*numCount-1]=cosl(tmp);
-                        break;
-                    case TAN:
-                        mathExpression[*numCount-1]=tanl(tmp);
-                        break;
-                    case LN:
-                        mathExpression[*numCount-1]=logl(tmp);
-                        break;
-                    case LOG:
-                        mathExpression[*numCount-1]=log10l(tmp);
-                        break;
-                    case ARCSIN:
-                        mathExpression[*numCount-1]=asinl(tmp);
-                        break;
-                    case ARCCOS:
-                        mathExpression[*numCount-1]=acosl(tmp);
-                        break;
-                    case ARCTAN:
-                        mathExpression[*numCount-1]=atanl(tmp);
-                        break;
-                    default:
-                        mathExpression[*numCount-1]=tmp;
-                        break;
+                        case SIN:
+                            mathExpression[*numCount-1]=sinl(tmp);
+                            break;
+                        case COS:
+                            mathExpression[*numCount-1]=cosl(tmp);
+                            break;
+                        case TAN:
+                            mathExpression[*numCount-1]=tanl(tmp);
+                            break;
+                        case LN:
+                            mathExpression[*numCount-1]=logl(tmp);
+                            break;
+                        case LOG:
+                            mathExpression[*numCount-1]=log10l(tmp);
+                            break;
+                        case ARCSIN:
+                            mathExpression[*numCount-1]=asinl(tmp);
+                            break;
+                        case ARCCOS:
+                            mathExpression[*numCount-1]=acosl(tmp);
+                            break;
+                        case ARCTAN:
+                            mathExpression[*numCount-1]=atanl(tmp);
+                            break;
+                        default:
+                            mathExpression[*numCount-1]=tmp;
+                            break;
                     }
-                    
-                    leftBracketCount--;
+                    leftBracketCount--;//将左括号计数减少1
                     break;
                 }
                 case 's'://处理特殊函数：相当于提前读入一个括号+修改leftBracketInfo[leftBracketCount].typeOfPriCal值进行特判
@@ -204,7 +209,7 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     (*numCount)++;
                     break;
                 }
-                case 'a':
+                case 'a'://反三角函数
                 {
                     leftBracketCount++;
                     leftBracketInfo[leftBracketCount].numcount=*numCount;
@@ -236,8 +241,6 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
             continue;
         }
         (*numCount)++;
-        //printf("%d %d",*numCount,)
     }
-
     return 0;
 }

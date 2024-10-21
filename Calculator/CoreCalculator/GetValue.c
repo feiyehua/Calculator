@@ -42,7 +42,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
     printf("\n");
 #endif
     int flag=0;
-    for(int i=1;i<numCount;i++)
+    for(int i=1;i<numCount;i++)//先完成乘方运算
     {
         //用一个flag标志^的类型
         //如果此前读到过-3，即涉及括号，则再次读到3时，locOfPri[i-1]=0
@@ -104,7 +104,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
     }
     printf("\n");
 #endif
-    for(int i=1;i<numCount;i++)
+    for(int i=1;i<numCount;i++)//处理还未完成计算的*、/号
     {
         switch(getTypeOfPri(locOfPri[i]))
         {
@@ -140,7 +140,7 @@ int getValue(long double* mathExpression,int* locOfPri,int numCount, long double
             }
         }
     }
-    for(int i=0;i<numCount;i++)
+    for(int i=0;i<numCount;i++)//此时* / 已经全部计算完成，将所有计算结果相加即是传入表达式的值
     {
         *result+=mathExpression[i];
         //printf("%Lf,",mathExpression[i]);
