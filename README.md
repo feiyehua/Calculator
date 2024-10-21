@@ -1,4 +1,13 @@
 # Calculator
+![Screenshot1](Assets/C944A545-46E3-4C22-A130-056469E9ECBC_1_105_c.jpeg "Screenshot1")
+
+![Screenshot2](Assets/BB1692B8-8864-4B59-93E0-57B8AEFF4450_1_105_c.jpeg "Screenshot2")
+
+![Screenshot3](Assets/B03AC0C3-0740-4191-9BED-0053F72EC8C8_4_5005_c.jpeg "Screenshot3")
+
+![Screenshot4](Assets/C88603C5-FC2B-4319-AF90-B2F2276A4D31_4_5005_c.jpeg "Screenshot4")
+
+![Screenshot5](Assets/IMG_0971D9CD8C2F-1.jpeg "Screenshot5")
 
 ## Feature
 
@@ -14,6 +23,9 @@ SwiftUI interface
 
 Haptic feedback on keyboard
 
+Calculation history
+
+Darw function graph
 
 ## Build 
 Build with Xcode (You may need Xcode Version 16.0 (16A242d) or above to build).
