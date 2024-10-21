@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "28288FCE-E698-4ECA-9CF6-65F4E5B16897"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Calculator/CoreCalculator/ParseMathExpression.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "parseMathExpression(originalExpression, mathExpression, numCount, locOfPri, x)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E374E174-B6BE-45A2-B044-BFD4D4080B80"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -46,8 +30,8 @@
             filePath = "Calculator/CoreCalculator/ParseMathExpression.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "parseMathExpression(originalExpression, mathExpression, numCount, locOfPri, x)"
             landmarkType = "9">
          </BreakpointContent>
@@ -62,8 +46,8 @@
             filePath = "Calculator/CoreCalculator/ParseMathExpression.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "parseMathExpression(originalExpression, mathExpression, numCount, locOfPri, x)"
             landmarkType = "9">
          </BreakpointContent>
@@ -71,15 +55,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3DB3D038-FA39-4FBF-AB59-60B2A671681D"
+            uuid = "D5D8B0C1-A1B2-48AC-8F65-A5865EF7812C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/CoreCalculator/ParseMathExpression.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "parseMathExpression(originalExpression, mathExpression, numCount, locOfPri, x)"
             landmarkType = "9">
          </BreakpointContent>

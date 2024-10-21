@@ -39,6 +39,39 @@ struct bracketInfo//存储一个括号的信息
     enum typeOfCal typeOfPriCal;//存储括号前涉及的运算种类
 }leftBracketInfo[1000];
 int leftBracketCount;//存储还未处理的左括号个数
+long double getValueOfFunction(enum typeOfCal typeOfPriCal,long double tmp)
+{
+    switch (typeOfPriCal)//检查括号是否涉及特殊函数，如果涉及，则修改计算得出的值
+    {
+        case SIN:
+            return sinl(tmp);
+            break;
+        case COS:
+            return cosl(tmp);
+            break;
+        case TAN:
+            return tanl(tmp);
+            break;
+        case LN:
+            return logl(tmp);
+            break;
+        case LOG:
+            return log10l(tmp);
+            break;
+        case ARCSIN:
+            return asinl(tmp);
+            break;
+        case ARCCOS:
+            return acosl(tmp);
+            break;
+        case ARCTAN:
+            return atanl(tmp);
+            break;
+        default:
+            return tmp;
+            break;
+    }
+}
 int parseMathExpression(char* originalExpression, long double* mathExpression, int* numCount, int* locOfPri,double x)//表达式解析的核心函数
 //locOfPri存储了数字i前的一个符号
 {
@@ -128,40 +161,12 @@ int parseMathExpression(char* originalExpression, long double* mathExpression, i
                     //printf("%d\n",*numCount);
                     getValue(&mathExpression[placeOfLeftBracket],&locOfPri[placeOfLeftBracket],numberOfNumbersInBracket,&tmp);
                     if(placeOfLeftBracket!=leftBracketInfo[leftBracketCount-1].numcount)
+                        //这里进行特判：如果没有涉及连续括号，则按照常规处理括号的方式处理；如果涉及了括号连续嵌套，则前面的符号属于第一个括号，内层括号的符号不做处理
                     {
                         locOfPri[*numCount-1]=locOfPri[placeOfLeftBracket];
                         locOfPri[placeOfLeftBracket]*=-1;
                     }
-                    switch (leftBracketInfo[leftBracketCount].typeOfPriCal)//检查括号是否涉及特殊函数，如果涉及，则修改计算得出的值
-                    {
-                        case SIN:
-                            mathExpression[*numCount-1]=sinl(tmp);
-                            break;
-                        case COS:
-                            mathExpression[*numCount-1]=cosl(tmp);
-                            break;
-                        case TAN:
-                            mathExpression[*numCount-1]=tanl(tmp);
-                            break;
-                        case LN:
-                            mathExpression[*numCount-1]=logl(tmp);
-                            break;
-                        case LOG:
-                            mathExpression[*numCount-1]=log10l(tmp);
-                            break;
-                        case ARCSIN:
-                            mathExpression[*numCount-1]=asinl(tmp);
-                            break;
-                        case ARCCOS:
-                            mathExpression[*numCount-1]=acosl(tmp);
-                            break;
-                        case ARCTAN:
-                            mathExpression[*numCount-1]=atanl(tmp);
-                            break;
-                        default:
-                            mathExpression[*numCount-1]=tmp;
-                            break;
-                    }
+                    mathExpression[*numCount-1]=getValueOfFunction(leftBracketInfo[leftBracketCount].typeOfPriCal,tmp);//求出括号外函数的值
                     leftBracketCount--;//将左括号计数减少1
                     break;
                 }
