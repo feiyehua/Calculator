@@ -19,6 +19,7 @@ struct CalculatorView: View {
     @State private var isDeleteTapped=false
     @State private var lastExpression=""
     @State private var buttonProfile=true
+    @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
     init() {
         // 设置分页指示器的颜色
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.black  // 当前页的颜色
@@ -36,7 +37,7 @@ struct CalculatorView: View {
                             .minimumScaleFactor(0.1)
                             
                     HStack {
-                        Text(toBeCalculatedString)  // 显示当前字符串
+                        Text(toBeCalculatedExpression.toBeCalculatedString)  // 显示当前字符串
                             .font(.largeTitle)
                             .lineLimit(1)
                             .frame(width: geometry.size.width*0.8,alignment: .trailing)
@@ -48,14 +49,14 @@ struct CalculatorView: View {
                                 .font(.title)
                                 .foregroundColor(.red)
                                 .onTapGesture {
-                                    if !toBeCalculatedString.isEmpty
-                                    {
-                                        toBeCalculatedString.removeLast()
+//                                    if !toBeCalculatedString.isEmpty
+//                                    {
+                                        toBeCalculatedExpression.removeLast()
                                         isDeleteTapped = !isDeleteTapped
-                                    }
+                                    //}
                                 }
                                 .onLongPressGesture(perform: {
-                                    toBeCalculatedString=""
+                                    toBeCalculatedExpression.removeAll()
                                     isDeleteTapped = !isDeleteTapped
                                 })
                             //.padding()
@@ -69,10 +70,10 @@ struct CalculatorView: View {
                     .frame(height: geometry.size.height / 12)
                     TabView {
                         VStack{
-                            MainButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile)
+                            MainButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
                         }
                         VStack{
-                            ExpandedButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression,buttonProfile:$buttonProfile)
+                            ExpandedButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
                         }
                     }
                     .frame(height: geometry.size.height*5 / 6)

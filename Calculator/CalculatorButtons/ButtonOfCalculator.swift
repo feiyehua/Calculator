@@ -17,11 +17,12 @@ import SwiftUI
 struct CalculatorButton: View {
     var displayedCharacter: String  // 按钮对应的字符
     var addToStringCharacter: String
-    @Binding var toBeCalculatedString: String  // 绑定到外部字符串的状态
+    //@Binding var toBeCalculatedString: String  // 绑定到外部字符串的状态
     var backgroundColor: Color  // 自定义背景颜色
     var foregroundColor: Color  // 自定义前景颜色
     @State var isTapped=false
     @State var isPressed=false
+    @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
     var body: some View {
         ZStack{
             Circle()
@@ -43,7 +44,8 @@ struct CalculatorButton: View {
                         }
                         .onEnded { _ in
                             isPressed = false // 松开时恢复颜色
-                            toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
+                            //toBeCalculatedString.append(addToStringCharacter)  // 按下按钮时添加字符
+                            toBeCalculatedExpression.addNext(addedString: addToStringCharacter)
                             isTapped = !isTapped;
                         }
                 )
@@ -55,10 +57,11 @@ struct CalculatorButton: View {
     }
 }
 struct CalculatorButtonAC: View {
-    @Binding var toBeCalculatedString: String
+    //@Binding var toBeCalculatedString: String
     @Binding var lastExpression:String
     @State var isTapped=false
     @State var isPressed=false
+    @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
     var body: some View {
         ZStack{
             Circle()
@@ -79,7 +82,8 @@ struct CalculatorButtonAC: View {
                         }
                         .onEnded { _ in
                             isPressed = false // 松开时恢复颜色
-                            toBeCalculatedString=""
+                            //toBeCalculatedString=""
+                            toBeCalculatedExpression.removeAll()
                             lastExpression=""
                             isTapped = !isTapped;
                         }
@@ -92,11 +96,12 @@ struct CalculatorButtonAC: View {
     }
 }
 struct CalculatorButtonEqual: View {
-    @Binding var toBeCalculatedString: String
+    //@Binding var toBeCalculatedString: String
     @Binding var lastExpression:String
     @State var isTapped=false
     @State var isPressed=false
     @Binding var buttonProfile:Bool
+    @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
     var body: some View {
         ZStack{
             Circle()
@@ -125,17 +130,19 @@ struct CalculatorButtonEqual: View {
                             isTapped = !isTapped
                             if(buttonProfile==true)
                             {
-                                let cxxString=std.string(toBeCalculatedString)
+                                let cxxString=std.string(toBeCalculatedExpression.toBeCalculatedString)
                                 var cxxResultString=std.string("")
                                 getStringValue(cxxString,&cxxResultString,0)
-                                lastExpression=toBeCalculatedString
+                                lastExpression=toBeCalculatedExpression.toBeCalculatedString
                                 lastExpression.append("=")
-                                toBeCalculatedString=String(cxxResultString)
-                                saveToFile(content: lastExpression+toBeCalculatedString+"\n")
+                                //toBeCalculatedString=String(cxxResultString)
+                                toBeCalculatedExpression.removeAll()
+                                toBeCalculatedExpression.addNext(addedString: String(cxxResultString))
+                                saveToFile(content: lastExpression+toBeCalculatedExpression.toBeCalculatedString+"\n")
                             }
                             else
                             {
-                                toBeCalculatedString.append("x")
+                                toBeCalculatedExpression.addNext(addedString: "x")
                             }
                         }
                 )

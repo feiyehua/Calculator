@@ -18,80 +18,81 @@ struct ExpandedButtons: View {
     @Binding var toBeCalculatedString:String
     @Binding var lastExpression:String
     @Binding var buttonProfile:Bool
+    @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
     var body: some View {
         HStack {
-            CalculatorButtonAC(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression)
+            CalculatorButtonAC(lastExpression:$lastExpression, toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "(", addToStringCharacter: "(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression )
             CalculatorButton(
-                displayedCharacter: ")", addToStringCharacter: ")",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                displayedCharacter: ")", addToStringCharacter: ")",backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
-                displayedCharacter: "÷", addToStringCharacter: "/",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .black,foregroundColor: .white)
+                displayedCharacter: "÷", addToStringCharacter: "/",backgroundColor: .black,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
         }
         HStack {
             CalculatorButton(
                 displayedCharacter: "sin", addToStringCharacter: "sin(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "cos", addToStringCharacter: "cos(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "tan", addToStringCharacter: "tan(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "×", addToStringCharacter: "*",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .black,foregroundColor: .white)
+                backgroundColor: .black,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
         }
         HStack {
             CalculatorButton(
                 displayedCharacter: "sin-1", addToStringCharacter: "arcsin(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "cos-1", addToStringCharacter: "arccos(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "tan-1", addToStringCharacter: "arctan(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "-", addToStringCharacter: "-",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .black,foregroundColor: .white)
+                backgroundColor: .black,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
         }
         //.frame(height: geometry.size.height / 6)
         HStack {
             CalculatorButton(
                 displayedCharacter: "ln", addToStringCharacter: "ln(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "log10", addToStringCharacter: "log(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "exp", addToStringCharacter: "e^(",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "+", addToStringCharacter: "+",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .black,foregroundColor: .white)
+                backgroundColor: .black,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
         }
         HStack {
             CalculatorButton(
                 displayedCharacter: "π", addToStringCharacter: "pi",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "e", addToStringCharacter: "e",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
             CalculatorButton(
                 displayedCharacter: "^", addToStringCharacter: "^",
-                toBeCalculatedString: $toBeCalculatedString,backgroundColor: .blue,foregroundColor: .white)
-            CalculatorButtonEqual(toBeCalculatedString: $toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile)
+                backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
+            CalculatorButtonEqual(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
         }
 
     }
 }
-
+@available(iOS 18.0, *)
 #Preview {
-    @State var a=""
-    @State var b=false
-    ExpandedButtons(toBeCalculatedString: $a,lastExpression: $a,buttonProfile: $b)
+    @Previewable @State var a=""
+    @Previewable @State var b=false
+    @Previewable @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
+    ExpandedButtons(toBeCalculatedString: $a,lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression:toBeCalculatedExpression)
 }
+
