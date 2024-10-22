@@ -17,7 +17,7 @@ import Foundation
 class ToBeCalculatedExpression: ObservableObject{
     @Published var toBeCalculatedString:String
     private var addedItem:[String]
-    private let invalidStrings = ["*", "+", "-", "/", "^",")"]//这些不需要在前面补上乘号
+    private let invalidStrings = ["*", "+", "-", "/", "^",")","."]//这些不需要在前面补上乘号
     private let validStrings = ["pi", "e",")"]
     init() {
         self.toBeCalculatedString = ""

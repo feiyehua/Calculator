@@ -20,12 +20,12 @@ struct GraphView: View {
     @State private var isDismissed = false
     @State private var isTapped = false
     @State private var isDeleteTapped = false
-    @State private var toBeCalculatedString=""
     @State private var refreshNeeded = false
     @State private var isCropTapped = false
     @State private var pointsInfo:[pointInfo] = []
     @State private var startValue = -10.0
     @State private var endValue = 10.0
+    @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
     struct pointInfo:Identifiable{
         var id=UUID();
         var x:Double;
@@ -75,7 +75,7 @@ struct GraphView: View {
                         isDeleteTapped.toggle()
                         refreshNeeded.toggle()
                         pointsInfo.removeAll()
-                        toBeCalculatedString=""
+                        toBeCalculatedExpression.removeAll()
                     }) {
                         Image(systemName: "eraser.line.dashed") // 使用系统图标
                             .foregroundStyle(.red)
@@ -101,14 +101,15 @@ struct GraphView: View {
         .partialSheet(isPresented: $isTapped,
                       onDismiss: {
             refreshNeeded.toggle()
-            getMultiplePointsValue(startValue: startValue, endValue: endValue, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedString)
+            getMultiplePointsValue(startValue: startValue, endValue: endValue, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedExpression.toBeCalculatedString)
         },content:{
-            GraphKeyboardView(passedString: $toBeCalculatedString)
+            GraphKeyboardView(passedExpression: toBeCalculatedExpression)
         })
         
         .partialSheet(isPresented: $isCropTapped, onDismiss: {
             refreshNeeded.toggle()
-            getMultiplePointsValue(startValue: startValue, endValue: endValue, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedString)
+            pointsInfo.removeAll()
+            getMultiplePointsValue(startValue: startValue, endValue: endValue, pointsInfo: &pointsInfo, toBeCalculatedString: toBeCalculatedExpression.toBeCalculatedString)
         },content: {
             EditDrawingRangeView(startValue: $startValue, endValue: $endValue)
         })

@@ -15,7 +15,7 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    @State private var toBeCalculatedString = ""  // 用于存储字符串
+    //@State private var toBeCalculatedString = ""  // 用于存储字符串
     @State private var isDeleteTapped=false
     @State private var lastExpression=""
     @State private var buttonProfile=true
@@ -70,10 +70,10 @@ struct CalculatorView: View {
                     .frame(height: geometry.size.height / 12)
                     TabView {
                         VStack{
-                            MainButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                            MainButtons(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
                         }
                         VStack{
-                            ExpandedButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                            ExpandedButtons(lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
                         }
                     }
                     .frame(height: geometry.size.height*5 / 6)

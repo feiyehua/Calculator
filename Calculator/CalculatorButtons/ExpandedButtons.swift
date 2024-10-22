@@ -15,7 +15,7 @@
 import SwiftUI
 
 struct ExpandedButtons: View {
-    @Binding var toBeCalculatedString:String
+    //@Binding var toBeCalculatedString:String
     @Binding var lastExpression:String
     @Binding var buttonProfile:Bool
     @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
@@ -93,6 +93,6 @@ struct ExpandedButtons: View {
     @Previewable @State var a=""
     @Previewable @State var b=false
     @Previewable @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
-    ExpandedButtons(toBeCalculatedString: $a,lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression:toBeCalculatedExpression)
+    ExpandedButtons(lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression:toBeCalculatedExpression)
 }
 

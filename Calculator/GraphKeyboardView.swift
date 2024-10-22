@@ -15,16 +15,16 @@
 import SwiftUI
 
 struct GraphKeyboardView: View {
-    @Binding private var toBeCalculatedString:String  // 用于存储字符串
+    //@Binding private var toBeCalculatedString:String  // 用于存储字符串
     @State private var isDeleteTapped=false
     @State private var lastExpression=""
     @State private var buttonProfile=false
-    @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
-    init(passedString:Binding<String>) {
+    @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
+    init(passedExpression:ToBeCalculatedExpression) {
         // 设置分页指示器的颜色
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.black  // 当前页的颜色
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.5)  // 其他页的颜色
-        _toBeCalculatedString = passedString
+        toBeCalculatedExpression = passedExpression
     }
     var body: some View {
         //GeometryReader{geometry in
@@ -32,7 +32,7 @@ struct GraphKeyboardView: View {
             
             VStack {
                 HStack {
-                    Text(toBeCalculatedString)  // 显示当前字符串
+                    Text(toBeCalculatedExpression.toBeCalculatedString)  // 显示当前字符串
                         .font(.largeTitle)
                         .lineLimit(1)
                         .frame(width: UIScreen.main.bounds.width*0.8,alignment: .trailing)
@@ -44,14 +44,11 @@ struct GraphKeyboardView: View {
                             .font(.title)
                             .foregroundColor(.red)
                             .onTapGesture {
-                                if !toBeCalculatedString.isEmpty
-                                {
-                                    toBeCalculatedString.removeLast()
-                                    isDeleteTapped = !isDeleteTapped
-                                }
+                                toBeCalculatedExpression.removeLast()
+                                isDeleteTapped = !isDeleteTapped
                             }
                             .onLongPressGesture(perform: {
-                                toBeCalculatedString=""
+                                toBeCalculatedExpression.removeAll()
                                 isDeleteTapped = !isDeleteTapped
                             })
                         //.padding()
@@ -65,10 +62,10 @@ struct GraphKeyboardView: View {
                 .frame(height: UIScreen.main.bounds.height / 12)
                 TabView {
                     VStack{
-                        MainButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                        MainButtons(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
                     }
                     VStack{
-                        ExpandedButtons(toBeCalculatedString:$toBeCalculatedString,lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                        ExpandedButtons(lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
                     }
                 }
                 //.frame(height: geometry.size.height*0.7)

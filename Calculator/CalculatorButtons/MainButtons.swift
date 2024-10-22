@@ -15,7 +15,7 @@
 import SwiftUI
 
 struct MainButtons: View {
-    @Binding var toBeCalculatedString:String
+    //@Binding var toBeCalculatedString:String
     @Binding var lastExpression:String
     @Binding var buttonProfile:Bool
     @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
@@ -93,5 +93,5 @@ struct MainButtons: View {
     @Previewable @State var a=""
     @Previewable @State var b=false
     @Previewable @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
-    MainButtons(toBeCalculatedString: $a,lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression: toBeCalculatedExpression)
+    MainButtons(lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression: toBeCalculatedExpression)
 }
