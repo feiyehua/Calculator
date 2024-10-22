@@ -24,11 +24,12 @@
 #define M_El        0xa.df85458a2bb4a9bp-2L
 #define M_PIl       0xc.90fdaa22168c235p-2L //Xcode里面不认__MATH_LONG_DOUBLE_CONSTANTS宏，God knows why
 #include "ParseMathExpression.h"
-#include"GetValue.h"
-#include<stdlib.h>
-#include<string.h>
-#include<stdio.h>
-#include<math.h>
+#include "GetValue.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+#include <errno.h>
 enum typeOfCal//枚举涉及到的函数类型，提高代码可读性
 {
     NORMAL,SIN,COS,TAN,ARCSIN,ARCCOS,ARCTAN,LN,LOG

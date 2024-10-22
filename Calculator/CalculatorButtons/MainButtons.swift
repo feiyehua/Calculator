@@ -19,6 +19,7 @@ struct MainButtons: View {
     @Binding var lastExpression:String
     @Binding var buttonProfile:Bool
     @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
+    @Binding var isErrorHappened:Bool
     var body: some View {
         HStack {
             CalculatorButtonAC(lastExpression:$lastExpression, toBeCalculatedExpression: toBeCalculatedExpression)
@@ -84,7 +85,7 @@ struct MainButtons: View {
             CalculatorButton(
                 displayedCharacter: ".", addToStringCharacter: ".",
                 backgroundColor: .blue,foregroundColor: .white,toBeCalculatedExpression: toBeCalculatedExpression)
-            CalculatorButtonEqual(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+            CalculatorButtonEqual(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression,isErrorHappened: $isErrorHappened)
         }
     }
 }
@@ -93,5 +94,5 @@ struct MainButtons: View {
     @Previewable @State var a=""
     @Previewable @State var b=false
     @Previewable @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
-    MainButtons(lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression: toBeCalculatedExpression)
+    MainButtons(lastExpression: $a,buttonProfile: $b,toBeCalculatedExpression: toBeCalculatedExpression,isErrorHappened: $b)
 }

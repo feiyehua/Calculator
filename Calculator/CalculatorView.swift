@@ -20,28 +20,56 @@ struct CalculatorView: View {
     @State private var lastExpression=""
     @State private var buttonProfile=true
     @StateObject var toBeCalculatedExpression = ToBeCalculatedExpression.init()
+    @State private var isErrorHappend=false
+    @State private var shakeOffset: CGFloat = 0.0
+    @State private var isShaking = false
     init() {
         // 设置分页指示器的颜色
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.black  // 当前页的颜色
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.5)  // 其他页的颜色
+    }
+    // 开始摇晃动画
+    func startShaking() {
+        withAnimation(Animation.linear(duration: 0.1).repeatCount(5, autoreverses: true)) {
+            shakeOffset = 10 // 改变偏移量形成摇晃
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation {
+                shakeOffset = 0 // 动画结束后回到原位
+                isShaking = false
+                //shouldShake = false // 结束摇晃
+            }
+        }
     }
     var body: some View {
         HStack{
             GeometryReader{geometry in
                 VStack {
                     //GeometryReader{ geometry in
-                        Text(lastExpression)  // 显示上一个算式字符串
-                            .font(.largeTitle)
-                            .frame(width: geometry.size.width, height: geometry.size.height / 12,alignment:.leading)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.1)
-                            
+                    Text(lastExpression)  // 显示上一个算式字符串
+                        .font(.largeTitle)
+                        .frame(width: geometry.size.width, height: geometry.size.height / 12,alignment:.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.1)
+                    
                     HStack {
-                        Text(toBeCalculatedExpression.toBeCalculatedString)  // 显示当前字符串
+                        let text=Text(toBeCalculatedExpression.toBeCalculatedString)  // 显示当前字符串
                             .font(.largeTitle)
                             .lineLimit(1)
                             .frame(width: geometry.size.width*0.8,alignment: .trailing)
                             .minimumScaleFactor(0.1)
+                            .offset(x: shakeOffset) // 设置偏移量实现摇晃效果
+                            .onChange(of: isErrorHappend){ newValue in
+                                if newValue {
+                                    
+                                    startShaking()
+                                }
+                            }
+                        if #available(iOS 17, *) {
+                            // 只在 iOS 17 及以上版本调用 .sensoryFeedback API
+                            text.sensoryFeedback(.error, trigger: isErrorHappend)
+                            //print("error!")
+                        }
                         let deleteButton = Button(action: {
                             
                         }) {
@@ -49,10 +77,10 @@ struct CalculatorView: View {
                                 .font(.title)
                                 .foregroundColor(.red)
                                 .onTapGesture {
-//                                    if !toBeCalculatedString.isEmpty
-//                                    {
-                                        toBeCalculatedExpression.removeLast()
-                                        isDeleteTapped = !isDeleteTapped
+                                    //                                    if !toBeCalculatedString.isEmpty
+                                    //                                    {
+                                    toBeCalculatedExpression.removeLast()
+                                    isDeleteTapped = !isDeleteTapped
                                     //}
                                 }
                                 .onLongPressGesture(perform: {
@@ -67,21 +95,22 @@ struct CalculatorView: View {
                             deleteButton.sensoryFeedback(.impact, trigger: isDeleteTapped)
                         }
                     }
+                    
                     .frame(height: geometry.size.height / 12)
                     TabView {
                         VStack{
-                            MainButtons(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                            MainButtons(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression, isErrorHappened: $isErrorHappend)
                         }
                         VStack{
-                            ExpandedButtons(lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                            ExpandedButtons(lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression,isErrorHappened: $isErrorHappend)
                         }
                     }
                     .frame(height: geometry.size.height*5 / 6)
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 }
             }
-            .padding()
         }
+        .padding()
     }
 }
 

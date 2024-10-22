@@ -44,7 +44,9 @@ struct GraphView: View {
     {
         let cxxString=std.string(toBeCalculatedString)
         var cxxResultString=std.string("")
-        return getStringValue(cxxString, &cxxResultString, x)
+        var result = 0.0
+        getStringValue(cxxString, &cxxResultString, x, &result)
+        return result
     }
     var body: some View {
         NavigationView{

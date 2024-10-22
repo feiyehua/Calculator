@@ -102,6 +102,7 @@ struct CalculatorButtonEqual: View {
     @State var isPressed=false
     @Binding var buttonProfile:Bool
     @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
+    @Binding var isErrorHappened:Bool
     var body: some View {
         ZStack{
             Circle()
@@ -127,21 +128,28 @@ struct CalculatorButtonEqual: View {
                         }
                         .onEnded { _ in
                             isPressed = false // 松开时恢复颜色
-                            isTapped = !isTapped
                             if(buttonProfile==true)
                             {
                                 let cxxString=std.string(toBeCalculatedExpression.toBeCalculatedString)
                                 var cxxResultString=std.string("")
-                                getStringValue(cxxString,&cxxResultString,0)
-                                lastExpression=toBeCalculatedExpression.toBeCalculatedString
-                                lastExpression.append("=")
-                                //toBeCalculatedString=String(cxxResultString)
-                                toBeCalculatedExpression.removeAll()
-                                toBeCalculatedExpression.addNext(addedString: String(cxxResultString))
-                                saveToFile(content: lastExpression+toBeCalculatedExpression.toBeCalculatedString+"\n")
+                                var tmp = 0.0
+                                if(getStringValue(cxxString,&cxxResultString,0,&tmp)==0)
+                                {
+                                    lastExpression=toBeCalculatedExpression.toBeCalculatedString
+                                    lastExpression.append("=")
+                                    //toBeCalculatedString=String(cxxResultString)
+                                    toBeCalculatedExpression.removeAll()
+                                    toBeCalculatedExpression.addNext(addedString: String(cxxResultString))
+                                    saveToFile(content: lastExpression+toBeCalculatedExpression.toBeCalculatedString+"\n")
+                                    isTapped = !isTapped
+                                }
+                                else{
+                                    isErrorHappened.toggle()
+                                }
                             }
                             else
                             {
+                                isTapped = !isTapped
                                 toBeCalculatedExpression.addNext(addedString: "x")
                             }
                         }

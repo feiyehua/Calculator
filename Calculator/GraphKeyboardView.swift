@@ -20,6 +20,7 @@ struct GraphKeyboardView: View {
     @State private var lastExpression=""
     @State private var buttonProfile=false
     @ObservedObject var toBeCalculatedExpression : ToBeCalculatedExpression
+    @State private var isErrorHappend=false
     init(passedExpression:ToBeCalculatedExpression) {
         // 设置分页指示器的颜色
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.black  // 当前页的颜色
@@ -62,10 +63,10 @@ struct GraphKeyboardView: View {
                 .frame(height: UIScreen.main.bounds.height / 12)
                 TabView {
                     VStack{
-                        MainButtons(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                        MainButtons(lastExpression: $lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression, isErrorHappened: $isErrorHappend)
                     }
                     VStack{
-                        ExpandedButtons(lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression)
+                        ExpandedButtons(lastExpression:$lastExpression,buttonProfile:$buttonProfile,toBeCalculatedExpression: toBeCalculatedExpression, isErrorHappened: $isErrorHappend)
                     }
                 }
                 //.frame(height: geometry.size.height*0.7)
