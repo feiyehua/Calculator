@@ -28,7 +28,7 @@ Calculation history
 Darw function graph
 
 ## Build 
-Build with Xcode (You may need Xcode Version 16.0 (16A242d) or above to build).
+Build with Xcode (You may need Xcode Version 16.0 (16A242d) or above) to build.
 
 For systems other than macOS, you can build a standalone console Calculator app. Navigate to `/Calculator/CoreCalculator`, and build with CMake. 
 
