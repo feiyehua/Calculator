@@ -51,6 +51,10 @@ struct GraphView: View {
     var body: some View {
         NavigationView{
             VStack {
+                Text(toBeCalculatedExpression.toBeCalculatedString)
+                    .font(.largeTitle)
+                    .lineLimit(1)
+                    .padding()
                 Chart(pointsInfo){ point in
                     PointMark(x: .value("x", point.x), y: .value("y",point.y))
                 }
